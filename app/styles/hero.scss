@@ -1,0 +1,106 @@
+.hero-section {
+  position: relative;
+  height: 80vh;
+  img {
+    position: static !important;
+  }
+  .widget-wrapper {
+    position: absolute;
+    bottom: 2rem;
+    left: 10%;
+    padding: 1.75rem;
+    background-color: var(--background-color);
+    border-radius: 15px;
+    width: 486px;
+    h1 {
+      font-weight: 600;
+      line-height: 2rem;
+      letter-spacing: -0.72px;
+    }
+    ul {
+      display: flex;
+      gap: 2rem;
+      margin: 1rem 0;
+      align-items: center;
+
+      li {
+        font-size: 12px;
+        font-weight: 600;
+      }
+      li:first-child {
+        background: var(--blue2);
+        color: white;
+        padding: 0.2rem 0.7rem;
+        border-radius: 15px;
+      }
+      li:not(li:first-child) {
+        text-decoration: line-through;
+      }
+    }
+    .input-button button {
+      display: flex;
+      text-align: left;
+      flex-direction: column;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      width: 100%;
+      font-weight: 600;
+      font-size: 12px;
+      padding: 0.6rem;
+      div {
+        display: flex;
+        justify-content: space-between;
+        font-size: 15px;
+        width: 100%;
+        svg {
+          position: relative;
+          bottom: 0.5rem;
+        }
+      }
+    }
+    .input-button button:hover {
+      border-color: rgba(0, 0, 0, 0.2);
+    }
+    .date-picker {
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      padding: 0.6rem;
+      display: flex;
+      flex-direction: row;
+      div {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        font-weight: 600;
+        label {
+          font-size: 12px;
+        }
+      }
+      div:first-child {
+        border-right: 1px solid #e5e7eb;
+        margin-right: 0.5rem;
+      }
+      input {
+        cursor: pointer;
+      }
+    }
+    .date-picker:hover {
+      border-color: rgba(0, 0, 0, 0.2);
+    }
+    .search {
+      background-color: var(--blue2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      color: white;
+      padding: 1rem 0;
+      border-radius: 30px;
+      transition: 0.5s;
+      margin-top: 2rem;
+    }
+    .search:hover {
+      opacity: 0.9;
+    }
+  }
+}

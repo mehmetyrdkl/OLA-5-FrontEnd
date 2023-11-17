@@ -1,5 +1,6 @@
 import "./globals.scss";
 import "./styles/footer.scss";
+import "./styles/hero.scss";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 

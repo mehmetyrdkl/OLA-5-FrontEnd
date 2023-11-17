@@ -19,9 +19,13 @@
   --link-color: var(--button-color);
   --logo-color-dark: #1d1d1b;
   --logo-color-white: var(--background-color);
+  font-size: 100%;
 }
 
 body {
   background-color: var(--background-color);
   font-family: var(--font);
+}
+h1 {
+  font-size: 36px;
 }
