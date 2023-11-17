@@ -1,0 +1,30 @@
+header {
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  height: 84px;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f3f3f5;
+  .header-logo {
+    width: 120px;
+    height: 35px;
+    fill: var(--logo-color-dark);
+  }
+  .nav-controls {
+    display: flex;
+    column-gap: 1.75rem;
+    align-items: center;
+  }
+  .header-menu {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+  }
+  .title-wrapper {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+  }
+}

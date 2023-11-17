@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  // Colors
+  --background-color: #ffffff;
+  --font-color: #000000;
+  --blue1: #273a48;
+  --blue2: #182b39;
+  // Font
+  --font: "Fellix", sans-serif;
+  --heading-font-weight: 600;
+  --font-weight: 400;
+  --button-color: #182b39;
+  --button-text-color: var(--background-color);
+  --button-opacity: 1;
+  --button-hover-opacity: 0.7;
+  --link-color: var(--button-color);
+  --logo-color-dark: #1d1d1b;
+  --logo-color-white: var(--background-color);
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: var(--font);
+}

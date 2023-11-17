@@ -1,0 +1,62 @@
+footer {
+  background-color: var(--blue1);
+  color: white;
+  .upper_footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 3rem 10% 0;
+    min-height: 600px;
+    nav {
+      font-size: 36px;
+      font-weight: bold;
+      li {
+        line-height: 32px;
+        padding-bottom: 1rem;
+        color: white;
+        transition: 0.3s ease-out;
+      }
+
+      li.not_highlighted {
+        color: #7d8991;
+      }
+      li.highlighted {
+        color: white;
+      }
+    }
+  }
+  .socials {
+    height: 80px;
+    padding: 0 10%;
+    background-color: var(--blue2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .footer_logo {
+      svg {
+        width: 120px;
+        height: 35px;
+        fill: var(--logo-color-white);
+      }
+    }
+    nav ul {
+      display: flex;
+      gap: 1rem;
+      font-size: 13px;
+      li {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        svg {
+        }
+      }
+    }
+    select {
+      background-color: var(--blue2);
+      cursor: pointer;
+    }
+  }
+}
+
+.instagram {
+  color: var(--blue2);
+}
