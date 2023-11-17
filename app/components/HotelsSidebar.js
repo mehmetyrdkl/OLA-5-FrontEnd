@@ -1,28 +1,40 @@
-import React from "react";
-import "../styles/header.scss";
+"use client";
+import { useState, useEffect } from "react";
+import "../styles/hotelsSidebar.scss";
 
 function HotelsSidebar() {
+  const [hotelData, setHotelData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/hotels"); // Replace with your API endpoint
+        if (response.ok) {
+          const jsonData = await response.json();
+          setHotelData(jsonData);
+          console.log(jsonData);
+        } else {
+          throw new Error("Failed to fetch data");
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <div className="title-wrapper">
-      <div>Locations</div>
+    <div>
+      <h1>List of Hotels:</h1>
       <div>
-        <svg
-          data-v-636226b5=""
-          xmlns="http://www.w3.org/2000/svg"
-          width="12"
-          height="12"
-          fill="none"
-        >
-          <path
-            fill="currentColor"
-            fillRule="evenodd"
-            d="m3 3.94 3 3 3-3L10.06 5 6 9.06 1.94 5 3 3.94Z"
-            clipRule="evenodd"
-          ></path>
-        </svg>
+        {hotelData.map((hotel) => (
+          <div key={hotel._id}>
+            <p>{hotel.name}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
-
 export default HotelsSidebar;
