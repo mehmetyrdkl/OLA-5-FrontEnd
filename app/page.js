@@ -1,8 +1,16 @@
+"use client";
+
 import Head from "next/head";
 import Hero from "./components/Hero";
 import HotelsSidebar from "./components/HotelsSidebar";
+import React, { useState } from "react";
 
 export default function Home() {
+  const [displayHotelSidebar, setDisplayHotelSidebar] = useState(false);
+
+  const handleClick = () => {
+    setDisplayHotelSidebar(!displayHotelSidebar); // Toggles the display state
+  };
   return (
     <>
       <Head>
@@ -13,8 +21,11 @@ export default function Home() {
           content="Meeting rooms, conference rooms, venues and lovely rooms. Comwell has it all. We aim high, also regarding sustainability, so you get the best experiences"
         ></meta>
       </Head>
-      <Hero></Hero>
-      <HotelsSidebar />
+      <Hero handleClick={handleClick}></Hero>
+      <HotelsSidebar
+        displayHotelSidebar={displayHotelSidebar}
+        setDisplayHotelSidebar={setDisplayHotelSidebar}
+      />
     </>
   );
 }

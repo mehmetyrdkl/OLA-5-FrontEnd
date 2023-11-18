@@ -7,7 +7,7 @@
   .widget-wrapper {
     position: absolute;
     bottom: 2rem;
-    left: 10%;
+    left: 15%;
     padding: 1.75rem;
     background-color: var(--background-color);
     border-radius: 15px;
@@ -88,7 +88,8 @@
       border-color: rgba(0, 0, 0, 0.2);
     }
     .search {
-      background-color: var(--blue2);
+      pointer-events: none;
+      background-color: var(--blue3);
       display: flex;
       justify-content: center;
       align-items: center;

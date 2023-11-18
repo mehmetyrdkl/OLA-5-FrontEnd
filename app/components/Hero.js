@@ -4,7 +4,7 @@ import React from "react";
 import BookingWidget from "./BookingWidget";
 import Image from "next/image";
 
-function Hero() {
+function Hero({ handleClick }) {
   return (
     <section className="hero-section">
       <Image
@@ -14,7 +14,7 @@ function Hero() {
         objectFit="cover"
         priority
       />
-      <BookingWidget />
+      <BookingWidget handleClick={handleClick} />
     </section>
   );
 }

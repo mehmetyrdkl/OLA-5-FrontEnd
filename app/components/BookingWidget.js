@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-function BookingWidget() {
+function BookingWidget({ handleClick }) {
   return (
     <div className="widget-wrapper">
       <h1>Check in at Comwell and discover Denmark</h1>
@@ -12,7 +12,7 @@ function BookingWidget() {
       </ul>
       <div className="flex flex-col space-y-3">
         <div className="hotel-picker input-button">
-          <button>
+          <button onClick={handleClick}>
             Hotel
             <div>
               <span>Choose hotel</span>
