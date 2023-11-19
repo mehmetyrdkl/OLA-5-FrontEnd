@@ -103,5 +103,10 @@
     .search:hover {
       opacity: 0.9;
     }
+    .active {
+      background-color: var(--blue2);
+      pointer-events: all;
+      cursor: pointer;
+    }
   }
 }

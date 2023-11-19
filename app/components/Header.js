@@ -31,8 +31,8 @@ function Header({ handleClick }) {
         </svg>
       </div>
       <div className="nav-controls">
-        <div className="title-wrapper">
-          <div onClick={handleClick}>Locations</div>
+        <div className="title-wrapper" onClick={() => handleClick("hotel")}>
+          <div>Locations</div>
           <div>
             <svg
               data-v-636226b5=""

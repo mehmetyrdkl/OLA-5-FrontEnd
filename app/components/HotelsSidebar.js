@@ -3,11 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import "../styles/hotelsSidebar.scss";
 
-function HotelsSidebar({
-  displayHotelSidebar,
-  setDisplayHotelSidebar,
-  setSelectedHotel,
-}) {
+function HotelsSidebar({ sidebar, setSidebar, setSelectedHotel }) {
   const [hotelData, setHotelData] = useState([]);
   const [activeButton, setActiveButton] = useState(0);
   const [selectedRegion, setSelectedRegion] = useState("All");
@@ -48,13 +44,13 @@ function HotelsSidebar({
       : hotelData.filter((hotel) => hotel.region === selectedRegion);
 
   const handleCloseSidebar = () => {
-    setDisplayHotelSidebar(false);
+    setSidebar(false);
   };
 
   return (
     <div
       className={
-        displayHotelSidebar ? "opened sidebar-container" : "sidebar-container"
+        sidebar === "hotel" ? "opened sidebar-container" : "sidebar-container"
       }
     >
       <div className="hotels-sidebar-wrapper">

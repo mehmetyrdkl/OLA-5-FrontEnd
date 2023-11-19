@@ -1,0 +1,104 @@
+.rooms-sidebar-container {
+  background-color: #0009;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: none;
+
+  .rooms-sidebar-wrapper {
+    padding: 2.5rem 1rem 1rem;
+    position: fixed;
+    width: 385px;
+    height: 100%;
+    right: 0;
+    top: 0;
+    background-color: var(--background-color);
+    .close-siderbar {
+      background-color: #e1e1e5;
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 32px;
+      aspect-ratio: 1/1;
+      position: absolute;
+      right: 1rem;
+    }
+    h2 {
+      font-weight: 600;
+      line-height: 32px;
+      letter-spacing: -0.72px;
+      padding-bottom: 32px;
+    }
+    .room-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      line-height: 10px;
+      margin-bottom: 0.75rem;
+    }
+    .nrAdults {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      span {
+        font-size: 18px;
+        line-height: 17px;
+        letter-spacing: -0.02em;
+        font-weight: 600;
+      }
+      div {
+        display: flex;
+        gap: 0.5rem;
+        button,
+        input {
+          width: 32px;
+          height: 32px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 100%;
+          text-align: center;
+          border: 1px solid #e1e1e5;
+        }
+        button {
+          background-color: #e1e1e5;
+        }
+        .disabled {
+          background-color: #f4f4f5;
+          border: 1px solid #f4f4f5;
+        }
+      }
+    }
+  }
+}
+.opened {
+  display: block;
+}
+
+.select {
+  background-color: var(--blue2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  color: white;
+  padding: 1rem 0;
+  border-radius: 30px;
+  transition: 0.5s;
+  margin-top: 1.5rem;
+  cursor: pointer;
+}
+.select:hover {
+  opacity: 0.9;
+}
+.rooms-select-container {
+  position: fixed;
+  bottom: 1.25rem;
+}
+.rooms-select {
+  width: 366px;
+}

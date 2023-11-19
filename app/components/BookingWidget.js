@@ -1,7 +1,23 @@
 "use client";
 import React from "react";
 
-function BookingWidget({ handleClick, selectedHotel }) {
+function BookingWidget({
+  handleClick,
+  selectedHotel,
+  numberOfGuests,
+  setBookingDates,
+  bookingDates,
+}) {
+  function handleDateChange(e, dateType) {
+    const selectedDate = e.target.value;
+    setBookingDates((prevDates) => ({
+      ...prevDates,
+      [dateType]: selectedDate,
+    }));
+  }
+
+  const currentDate = new Date().toISOString().split("T")[0];
+
   return (
     <div className="widget-wrapper">
       <h1>Check in at Comwell and discover Denmark</h1>
@@ -12,7 +28,7 @@ function BookingWidget({ handleClick, selectedHotel }) {
       </ul>
       <div className="flex flex-col space-y-3">
         <div className="hotel-picker input-button">
-          <button onClick={handleClick}>
+          <button onClick={() => handleClick("hotel")}>
             Hotel
             <div>
               <span>
@@ -36,10 +52,15 @@ function BookingWidget({ handleClick, selectedHotel }) {
           </button>
         </div>
         <div className="room-persons-picker input-button">
-          <button>
+          <button onClick={() => handleClick("rooms")}>
             Rooms
             <div>
-              <span>1 Room, 1 Person</span>
+              <span>
+                1 Room,
+                {numberOfGuests > 1
+                  ? numberOfGuests + " Persons"
+                  : numberOfGuests + " Person"}{" "}
+              </span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -58,14 +79,31 @@ function BookingWidget({ handleClick, selectedHotel }) {
         <div className="date-picker input-button">
           <div>
             <label>Check in</label>
-            <input type="date"></input>
+            <input
+              onChange={(e) => handleDateChange(e, "check_in")}
+              min={currentDate}
+              type="date"
+            ></input>
           </div>
           <div>
             <label>Check out</label>
-            <input type="date"></input>
+            <input
+              onChange={(e) => handleDateChange(e, "check_out")}
+              min={bookingDates.check_in}
+              type="date"
+              disabled={!bookingDates.check_in}
+            ></input>
           </div>
         </div>
-        <button className="search">
+        <button
+          className={
+            selectedHotel.name &&
+            bookingDates.check_in &&
+            bookingDates.check_out
+              ? "active search"
+              : "search"
+          }
+        >
           Search
           <svg
             xmlns="http://www.w3.org/2000/svg"
