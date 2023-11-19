@@ -4,6 +4,7 @@ import Head from "next/head";
 import Hero from "./components/Hero";
 import HotelsSidebar from "./components/HotelsSidebar";
 import RoomsSidebar from "./components/RoomsSidebar";
+import BookingSidebar from "./components/BookingSidebar";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import React, { useState } from "react";
@@ -49,6 +50,13 @@ export default function Home() {
         sidebar={sidebar}
         setSidebar={setSidebar}
         setNumberOfGuests={setNumberOfGuests}
+      />
+      <BookingSidebar
+        sidebar={sidebar}
+        setSidebar={setSidebar}
+        bookingDates={bookingDates}
+        numberOfGuests={numberOfGuests}
+        selectedHotel={selectedHotel}
       />
       <Footer />
     </>

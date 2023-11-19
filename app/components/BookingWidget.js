@@ -103,6 +103,7 @@ function BookingWidget({
               ? "active search"
               : "search"
           }
+          onClick={() => handleClick("booking")}
         >
           Search
           <svg
