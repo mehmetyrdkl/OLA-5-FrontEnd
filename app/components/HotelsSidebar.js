@@ -3,7 +3,11 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import "../styles/hotelsSidebar.scss";
 
-function HotelsSidebar({ displayHotelSidebar, setDisplayHotelSidebar }) {
+function HotelsSidebar({
+  displayHotelSidebar,
+  setDisplayHotelSidebar,
+  setSelectedHotel,
+}) {
   const [hotelData, setHotelData] = useState([]);
   const [activeButton, setActiveButton] = useState(0);
   const [selectedRegion, setSelectedRegion] = useState("All");
@@ -31,6 +35,11 @@ function HotelsSidebar({ displayHotelSidebar, setDisplayHotelSidebar }) {
   const handleFilter = (index, region) => {
     setActiveButton(index);
     setSelectedRegion(region === "All" ? "All" : regions[index]);
+  };
+
+  const handleSelectHotel = () => {
+    setSelectedHotel(hotelData.find((hotel) => hotel.name === chosenHotel));
+    handleCloseSidebar();
   };
 
   const filteredHotels =
@@ -110,6 +119,7 @@ function HotelsSidebar({ displayHotelSidebar, setDisplayHotelSidebar }) {
         </ul>
         <div className="hotel-select-container border-t border-gray-200">
           <button
+            onClick={handleSelectHotel}
             className={
               chosenHotel !== ""
                 ? "active hotel-select search"

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-function BookingWidget({ handleClick }) {
+function BookingWidget({ handleClick, selectedHotel }) {
   return (
     <div className="widget-wrapper">
       <h1>Check in at Comwell and discover Denmark</h1>
@@ -15,7 +15,11 @@ function BookingWidget({ handleClick }) {
           <button onClick={handleClick}>
             Hotel
             <div>
-              <span>Choose hotel</span>
+              <span>
+                <span>
+                  {selectedHotel.name ? selectedHotel.name : "Choose hotel"}
+                </span>
+              </span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

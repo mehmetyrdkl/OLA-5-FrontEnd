@@ -7,10 +7,12 @@ import React, { useState } from "react";
 
 export default function Home() {
   const [displayHotelSidebar, setDisplayHotelSidebar] = useState(false);
+  const [selectedHotel, setSelectedHotel] = useState({});
 
   const handleClick = () => {
     setDisplayHotelSidebar(!displayHotelSidebar); // Toggles the display state
   };
+
   return (
     <>
       <Head>
@@ -21,10 +23,11 @@ export default function Home() {
           content="Meeting rooms, conference rooms, venues and lovely rooms. Comwell has it all. We aim high, also regarding sustainability, so you get the best experiences"
         ></meta>
       </Head>
-      <Hero handleClick={handleClick}></Hero>
+      <Hero handleClick={handleClick} selectedHotel={selectedHotel}></Hero>
       <HotelsSidebar
         displayHotelSidebar={displayHotelSidebar}
         setDisplayHotelSidebar={setDisplayHotelSidebar}
+        setSelectedHotel={setSelectedHotel}
       />
     </>
   );

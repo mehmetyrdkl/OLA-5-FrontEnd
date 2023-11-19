@@ -3,7 +3,7 @@
 import React from "react";
 import "../styles/header.scss";
 
-function Header() {
+function Header({ handleClick }) {
   return (
     <header>
       <div>
@@ -32,7 +32,7 @@ function Header() {
       </div>
       <div className="nav-controls">
         <div className="title-wrapper">
-          <div>Locations</div>
+          <div onClick={handleClick}>Locations</div>
           <div>
             <svg
               data-v-636226b5=""
