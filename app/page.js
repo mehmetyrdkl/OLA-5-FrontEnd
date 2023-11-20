@@ -8,6 +8,7 @@ import BookingSidebar from "./components/BookingSidebar";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import React, { useState } from "react";
+import Cards from "./components/Cards";
 
 export default function Home() {
   const [sidebar, setSidebar] = useState(false);
@@ -41,6 +42,7 @@ export default function Home() {
         setBookingDates={setBookingDates}
         bookingDates={bookingDates}
       ></Hero>
+      <Cards />
       <HotelsSidebar
         sidebar={sidebar}
         setSidebar={setSidebar}
