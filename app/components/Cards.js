@@ -14,7 +14,9 @@ const Cards = () => {
           <p>See premises and meeting packages</p>
         </div>
         <div className="card-text">
-          <p>Let us help you with your next meeting</p>
+          <p className="card-text-title">
+            Let us help you with your next meeting
+          </p>
           <p className="card-text-details">
             We have the primeses, the good catering and professional meeting
             planing.
@@ -31,7 +33,7 @@ const Cards = () => {
           <p>Put a mark in your calendar</p>
         </div>
         <div className="card-text">
-          <p>Christmas party with food and music</p>
+          <p className="card-text-title">Christmas party with food and music</p>
           <p className="card-text-details">
             Ready for this year's company Christmas lunch? See the hotels'
             Chrimstas offers for you.
@@ -48,7 +50,7 @@ const Cards = () => {
           <p>Play and win</p>
         </div>
         <div className="card-text">
-          <p>Black Weekend with offers</p>
+          <p className="card-text-title">Black Weekend with offers</p>
           <p className="card-text-details">
             Try your luck in our on-armed thief as we warm up to black Weekend.
           </p>
