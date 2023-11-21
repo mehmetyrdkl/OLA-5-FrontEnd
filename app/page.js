@@ -2,16 +2,18 @@
 
 import Head from "next/head";
 import Hero from "./components/Hero";
-import HotelsSidebar from "./components/HotelsSidebar";
-import RoomsSidebar from "./components/RoomsSidebar";
-import BookingSidebar from "./components/BookingSidebar";
+import HotelsSidebar from "./components/Sidebars/HotelsSidebar";
+import RoomsSidebar from "./components/Sidebars/RoomsSidebar";
+import BookingSidebar from "./components/Sidebars/BookingSidebar";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import React, { useState } from "react";
 import Cards from "./components/Cards";
+import WelcomeSection from "./components/WelcomeSection";
+import useMyContext from "./MyContext";
 
 export default function Home() {
-  const [sidebar, setSidebar] = useState(false);
+  const value = useMyContext();
   const [selectedHotel, setSelectedHotel] = useState({});
   const [numberOfGuests, setNumberOfGuests] = useState(1);
   const [bookingDates, setBookingDates] = useState({
@@ -21,7 +23,7 @@ export default function Home() {
 
   const handleClick = (state) => {
     // setDisplayHotelSidebar(!displayHotelSidebar); // Toggles the display state
-    setSidebar(state);
+    value.setSidebar(state);
   };
 
   return (
@@ -43,19 +45,10 @@ export default function Home() {
         bookingDates={bookingDates}
       ></Hero>
       <Cards />
-      <HotelsSidebar
-        sidebar={sidebar}
-        setSidebar={setSidebar}
-        setSelectedHotel={setSelectedHotel}
-      />
-      <RoomsSidebar
-        sidebar={sidebar}
-        setSidebar={setSidebar}
-        setNumberOfGuests={setNumberOfGuests}
-      />
+      <WelcomeSection selectedHotel={selectedHotel} />
+      <HotelsSidebar setSelectedHotel={setSelectedHotel} />
+      <RoomsSidebar setNumberOfGuests={setNumberOfGuests} />
       <BookingSidebar
-        sidebar={sidebar}
-        setSidebar={setSidebar}
         bookingDates={bookingDates}
         numberOfGuests={numberOfGuests}
         selectedHotel={selectedHotel}

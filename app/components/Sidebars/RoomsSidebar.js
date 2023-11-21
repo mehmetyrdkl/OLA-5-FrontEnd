@@ -1,11 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
-import "../styles/roomsSidebar.scss";
+import "../../styles/roomsSidebar.scss";
+import useMyContext from "../../MyContext";
 
 function RoomsSidebar({ sidebar, setSidebar, setNumberOfGuests }) {
+  const value = useMyContext();
   const [numberOfAdults, setNumberOfAdults] = useState(1);
   const handleCloseRoomSidebar = () => {
-    setSidebar(false);
+    value.setSidebar(false);
   };
   const handleGuestNumber = () => {
     setNumberOfGuests(numberOfAdults);
@@ -14,7 +16,7 @@ function RoomsSidebar({ sidebar, setSidebar, setNumberOfGuests }) {
   return (
     <div
       className={
-        sidebar === "rooms"
+        value.sidebar === "rooms"
           ? "opened rooms-sidebar-container"
           : "rooms-sidebar-container"
       }

@@ -20,7 +20,11 @@ function BookingWidget({
 
   return (
     <div className="widget-wrapper">
-      <h1>Check in at Comwell and discover Denmark</h1>
+      <h1>
+        {selectedHotel.description
+          ? selectedHotel.description
+          : "Check in at Comwell and discover Denmark"}
+      </h1>
       <ul>
         <li className="accomodation">Accommodation</li>
         <li className="meeting-conference">Meeting & Conference</li>

@@ -1,0 +1,18 @@
+.welcome-section-wrapper {
+  margin: 50px 20%;
+  div {
+    display: flex;
+    gap: 2rem;
+  }
+  h2 {
+    font-weight: 600;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    line-height: 32px;
+    width: auto;
+    min-width: 400px;
+  }
+  p {
+    white-space: pre-line;
+  }
+}

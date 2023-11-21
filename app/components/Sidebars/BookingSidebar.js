@@ -1,5 +1,11 @@
-import React from "react";
-import "../styles/bookingSidebar.scss";
+import { useState } from "react";
+import "../../styles/bookingSidebar.scss";
+import FirstStepBooking from "../BookingFlow/FirstStepBooking";
+import SecondStepBooking from "../BookingFlow/SecondStepBooking";
+import ThirdStepBooking from "../BookingFlow/ThirdStepBooking";
+import FourthStepBooking from "../BookingFlow/FourthStepBooking";
+import FinalStepBooking from "../BookingFlow/FinalStepBooking";
+import useMyContext from "../../MyContext";
 
 function BookingSidebar({
   sidebar,
@@ -8,8 +14,10 @@ function BookingSidebar({
   numberOfGuests,
   selectedHotel,
 }) {
+  const value = useMyContext();
+  const [bookingStep, setBookingStep] = useState(0);
   const handleCloseBookingSidebar = () => {
-    setSidebar(false);
+    value.setSidebar(false);
   };
   function formatShortDate(dateString) {
     return new Date(dateString).toLocaleDateString("en-UK", {
@@ -21,7 +29,7 @@ function BookingSidebar({
   return (
     <div
       className={
-        sidebar === "booking"
+        value.sidebar === "booking"
           ? "opened booking-sidebar-container"
           : "booking-sidebar-container"
       }
@@ -96,21 +104,27 @@ function BookingSidebar({
           </div>
           <div className="total-price">0 kr.</div>
         </div>
-        <div className="booking-title">
-          <h2>Choose Room</h2>
-        </div>
-        <ul className="booking-rooms-packages">
-          <li>Rooms</li>
-          <li>Packages</li>
-        </ul>
-        <div className="booking-rooms-container">
-          <div className="room-option-wrapper">
-            <div className="booking-room-image">
-              <div className="booking-room-size"></div>
-            </div>
-            <div className="booking-room-details"></div>
-          </div>
-        </div>
+        {/* Choose room */}
+        {bookingStep === 0 && (
+          <FirstStepBooking selectedHotel={selectedHotel} />
+        )}
+        {/* Room details */}
+        {bookingStep === 1 && <SecondStepBooking />}
+        {/* Guest information */}
+        {bookingStep === 2 && <ThirdStepBooking />}
+        {/* Guest payment */}
+        {bookingStep === 3 && <FourthStepBooking />}
+        {/* Booking success */}
+        {bookingStep === 4 && <FinalStepBooking />}
+        {/* footer bar */}
+        {bookingStep > 0 && (
+          <button onClick={() => setBookingStep(bookingStep - 1)}>
+            Previous
+          </button>
+        )}
+        {bookingStep < 4 && (
+          <button onClick={() => setBookingStep(bookingStep + 1)}>Next</button>
+        )}
       </div>
     </div>
   );

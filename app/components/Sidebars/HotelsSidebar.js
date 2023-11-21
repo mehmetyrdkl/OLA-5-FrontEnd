@@ -1,9 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import "../styles/hotelsSidebar.scss";
+import "../../styles/hotelsSidebar.scss";
+import useMyContext from "../../MyContext";
 
-function HotelsSidebar({ sidebar, setSidebar, setSelectedHotel }) {
+function HotelsSidebar({ setSelectedHotel }) {
+  const value = useMyContext();
   const [hotelData, setHotelData] = useState([]);
   const [activeButton, setActiveButton] = useState(0);
   const [selectedRegion, setSelectedRegion] = useState("All");
@@ -44,13 +46,15 @@ function HotelsSidebar({ sidebar, setSidebar, setSelectedHotel }) {
       : hotelData.filter((hotel) => hotel.region === selectedRegion);
 
   const handleCloseSidebar = () => {
-    setSidebar(false);
+    value.setSidebar(false);
   };
 
   return (
     <div
       className={
-        sidebar === "hotel" ? "opened sidebar-container" : "sidebar-container"
+        value.sidebar === "hotel"
+          ? "opened sidebar-container"
+          : "sidebar-container"
       }
     >
       <div className="hotels-sidebar-wrapper">
