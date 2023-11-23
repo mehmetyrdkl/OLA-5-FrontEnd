@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
   return (
     <MyContext.Provider value={contextValue}>
       <html lang="en">
-        <body className={sidebar && "overflow-hidden"}>{children}</body>
+        <body className={sidebar ? "overflow-hidden" : ""}>{children}</body>
       </html>
     </MyContext.Provider>
   );

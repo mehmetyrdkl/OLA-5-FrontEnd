@@ -36,3 +36,9 @@ h2 {
 .overflow-hidden {
   overflow: hidden;
 }
+
+.wrapper-with-overview {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  margin-top: 2.5rem;
+}

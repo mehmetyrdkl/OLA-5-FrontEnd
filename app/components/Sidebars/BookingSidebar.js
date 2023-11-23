@@ -14,10 +14,15 @@ function BookingSidebar({
   numberOfGuests,
   selectedHotel,
 }) {
+  const [selectedRoom, setSelectedRoom] = useState({});
   const value = useMyContext();
   const [bookingStep, setBookingStep] = useState(0);
   const handleCloseBookingSidebar = () => {
-    value.setSidebar(false);
+    if (bookingStep === 0) {
+      value.setSidebar(false);
+    } else {
+      setBookingStep(bookingStep - 1);
+    }
   };
   function formatShortDate(dateString) {
     return new Date(dateString).toLocaleDateString("en-UK", {
@@ -106,25 +111,48 @@ function BookingSidebar({
         </div>
         {/* Choose room */}
         {bookingStep === 0 && (
-          <FirstStepBooking selectedHotel={selectedHotel} />
+          <FirstStepBooking
+            selectedHotel={selectedHotel}
+            setSelectedRoom={setSelectedRoom}
+            setBookingStep={setBookingStep}
+            bookingStep={bookingStep}
+          />
         )}
         {/* Room details */}
-        {bookingStep === 1 && <SecondStepBooking />}
+        {bookingStep === 1 && (
+          <SecondStepBooking
+            selectedRoom={selectedRoom}
+            setBookingStep={setBookingStep}
+            bookingStep={bookingStep}
+          />
+        )}
         {/* Guest information */}
-        {bookingStep === 2 && <ThirdStepBooking />}
+        {bookingStep === 2 && (
+          <ThirdStepBooking
+            selectedRoom={selectedRoom}
+            setBookingStep={setBookingStep}
+            bookingStep={bookingStep}
+          />
+        )}
         {/* Guest payment */}
-        {bookingStep === 3 && <FourthStepBooking />}
+        {bookingStep === 3 && (
+          <FourthStepBooking
+            selectedRoom={selectedRoom}
+            selectedHotel={selectedHotel}
+            bookingDates={bookingDates}
+          />
+        )}
         {/* Booking success */}
         {bookingStep === 4 && <FinalStepBooking />}
         {/* footer bar */}
-        {bookingStep > 0 && (
+        {/* {bookingStep > 0 && (
           <button onClick={() => setBookingStep(bookingStep - 1)}>
             Previous
           </button>
         )}
         {bookingStep < 4 && (
           <button onClick={() => setBookingStep(bookingStep + 1)}>Next</button>
-        )}
+        )} */}
       </div>
     </div>
   );
