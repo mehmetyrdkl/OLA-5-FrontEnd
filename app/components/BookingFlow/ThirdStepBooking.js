@@ -1,9 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/BookingFlow/thirdStepBooking.scss";
 import BookingOverview from "./BookingOverview";
 
-function ThirdStepBooking({ selectedRoom, setBookingStep, bookingStep }) {
+function ThirdStepBooking({
+  selectedRoom,
+  setBookingStep,
+  bookingStep,
+  totalPrice,
+  userInfo,
+  setUserInfo,
+}) {
   const [selectedField, setSelectedField] = useState(null);
+  const [allFieldsFilled, setAllFieldsFilled] = useState(false);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserInfo((prevUserInfo) => ({
+      ...prevUserInfo,
+      [name]: value,
+    }));
+  };
+
+  useEffect(() => {
+    const { fullname, email, phone } = userInfo;
+    // Check if all fields have values
+    const fieldsFilled =
+      fullname.trim() !== "" &&
+      email.trim().includes("@") &&
+      phone.trim().length >= 6;
+    setAllFieldsFilled(fieldsFilled);
+  }, [userInfo]);
 
   return (
     <div className="wrapper-with-overview">
@@ -13,12 +38,16 @@ function ThirdStepBooking({ selectedRoom, setBookingStep, bookingStep }) {
           <div className="input-wrapper">
             <input
               type="text"
-              name="name"
-              onFocus={() => setSelectedField("name")}
+              name="fullname"
+              onFocus={() => setSelectedField("fullname")}
               onBlur={() => setSelectedField(null)}
+              onChange={handleInputChange}
+              value={userInfo.fullname}
             />
             <label
-              className={`input-label ${selectedField === "name" && "active"}`}
+              className={`input-label ${
+                (selectedField === "fullname" || userInfo.fullname) && "active"
+              }`}
             >
               Full Name
             </label>
@@ -29,9 +58,13 @@ function ThirdStepBooking({ selectedRoom, setBookingStep, bookingStep }) {
               name="email"
               onFocus={() => setSelectedField("email")}
               onBlur={() => setSelectedField(null)}
+              onChange={handleInputChange}
+              value={userInfo.email}
             />
             <label
-              className={`input-label ${selectedField === "email" && "active"}`}
+              className={`input-label ${
+                (selectedField === "email" || userInfo.email) && "active"
+              }`}
             >
               Email
             </label>
@@ -40,11 +73,17 @@ function ThirdStepBooking({ selectedRoom, setBookingStep, bookingStep }) {
             <input
               type="tel"
               name="phone"
+              maxLength={10}
+              pattern="[0-9]{10}"
               onFocus={() => setSelectedField("phone")}
               onBlur={() => setSelectedField(null)}
+              onChange={handleInputChange}
+              value={userInfo.phone}
             />
             <label
-              className={`input-label ${selectedField === "phone" && "active"}`}
+              className={`input-label ${
+                (selectedField === "phone" || userInfo.phone) && "active"
+              }`}
             >
               Phone Number
             </label>
@@ -52,11 +91,14 @@ function ThirdStepBooking({ selectedRoom, setBookingStep, bookingStep }) {
         </form>
       </div>
       <div className="booking-footer">
-        <button onClick={() => setBookingStep(bookingStep + 1)}>
+        <button
+          onClick={() => setBookingStep(bookingStep + 1)}
+          disabled={!allFieldsFilled}
+        >
           Continue
         </button>
       </div>
-      <BookingOverview selectedRoom={selectedRoom} />
+      <BookingOverview selectedRoom={selectedRoom} totalPrice={totalPrice} />
     </div>
   );
 }

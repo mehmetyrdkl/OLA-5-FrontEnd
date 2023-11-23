@@ -2,8 +2,8 @@ import React from "react";
 import "../../styles/BookingFlow/overview.scss";
 import Image from "next/image";
 
-function BookingOverview({ selectedRoom }) {
-  const formattedPrice = selectedRoom.price.toLocaleString("da-DK", {
+function BookingOverview({ selectedRoom, totalPrice }) {
+  const formattedPrice = totalPrice.toLocaleString("da-DK", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });

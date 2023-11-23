@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../styles/bookingSidebar.scss";
 import FirstStepBooking from "../BookingFlow/FirstStepBooking";
 import SecondStepBooking from "../BookingFlow/SecondStepBooking";
@@ -14,12 +14,38 @@ function BookingSidebar({
   numberOfGuests,
   selectedHotel,
 }) {
+  const [numberOfDays, setNumberOfDays] = useState(0);
+
+  useEffect(() => {
+    function updateNumberOfDays() {
+      const checkInDate = new Date(bookingDates.check_in);
+      const checkOutDate = new Date(bookingDates.check_out);
+      const timeDifference = checkOutDate - checkInDate;
+
+      const days = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+      if (days === 0) {
+        setNumberOfDays(days + 1);
+      } else {
+        setNumberOfDays(days);
+      }
+    }
+
+    updateNumberOfDays();
+  }, [bookingDates, setNumberOfDays]);
+
+  const [totalPrice, setTotalPrice] = useState(0);
   const [selectedRoom, setSelectedRoom] = useState({});
   const value = useMyContext();
+  const [userInfo, setUserInfo] = useState({
+    fullname: "",
+    email: "",
+    phone: "",
+  });
   const [bookingStep, setBookingStep] = useState(0);
   const handleCloseBookingSidebar = () => {
     if (bookingStep === 0) {
       value.setSidebar(false);
+      setTotalPrice(0);
     } else {
       setBookingStep(bookingStep - 1);
     }
@@ -107,7 +133,13 @@ function BookingSidebar({
             </svg>
             <span>{selectedHotel.location}</span>
           </div>
-          <div className="total-price">0 kr.</div>
+          <div className="total-price">
+            {totalPrice.toLocaleString("da-DK", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}{" "}
+            kr.
+          </div>
         </div>
         {/* Choose room */}
         {bookingStep === 0 && (
@@ -116,6 +148,8 @@ function BookingSidebar({
             setSelectedRoom={setSelectedRoom}
             setBookingStep={setBookingStep}
             bookingStep={bookingStep}
+            numberOfDays={numberOfDays}
+            setTotalPrice={setTotalPrice}
           />
         )}
         {/* Room details */}
@@ -124,6 +158,7 @@ function BookingSidebar({
             selectedRoom={selectedRoom}
             setBookingStep={setBookingStep}
             bookingStep={bookingStep}
+            totalPrice={totalPrice}
           />
         )}
         {/* Guest information */}
@@ -132,6 +167,9 @@ function BookingSidebar({
             selectedRoom={selectedRoom}
             setBookingStep={setBookingStep}
             bookingStep={bookingStep}
+            totalPrice={totalPrice}
+            setUserInfo={setUserInfo}
+            userInfo={userInfo}
           />
         )}
         {/* Guest payment */}
@@ -140,6 +178,8 @@ function BookingSidebar({
             selectedRoom={selectedRoom}
             selectedHotel={selectedHotel}
             bookingDates={bookingDates}
+            totalPrice={totalPrice}
+            userInfo={userInfo}
           />
         )}
         {/* Booking success */}

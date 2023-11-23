@@ -1,0 +1,92 @@
+.fourth-step-overview {
+  width: 440px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 1rem;
+  .info-box {
+    display: flex;
+    gap: 1rem;
+    border: 1px solid #e1e1e5;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    .info-box-svg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e1e1e5;
+      width: 36px;
+      height: 36px;
+      border-radius: 100%;
+    }
+    .info-details {
+      h2 {
+        font-size: 20px;
+        padding-bottom: 0;
+      }
+      ul,
+      .info-date {
+        font-size: 13px;
+        color: #929292;
+      }
+    }
+  }
+}
+.payment-terms {
+  width: 440px;
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 13px;
+    color: #929292;
+  }
+}
+
+.payment-method {
+  margin-top: 1rem;
+  width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  .method {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #e1e1e5;
+    border-radius: 10px;
+    text-align: left;
+    padding: 1rem;
+    .check {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border: 1px solid #e1e1e5;
+      border-radius: 100%;
+    }
+  }
+  .method:hover,
+  .method:hover > .check {
+    border-color: rgba(0, 0, 0, 0.3);
+  }
+  .chosen-payment {
+    border: 1px solid black;
+    .check {
+      border-color: black;
+      background-color: black;
+    }
+  }
+  .terms-and-conditions {
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    input {
+      margin-right: 1rem;
+      width: 24px;
+      height: 24px;
+      border-radius: 15px;
+    }
+  }
+}

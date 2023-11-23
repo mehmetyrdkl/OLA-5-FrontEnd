@@ -7,11 +7,13 @@ function FirstStepBooking({
   setSelectedRoom,
   setBookingStep,
   bookingStep,
+  numberOfDays,
+  setTotalPrice,
 }) {
-  const facilitiesSVGs = [];
   function handleRoomSelection(room) {
     setBookingStep(bookingStep + 1);
     setSelectedRoom(room);
+    setTotalPrice(room.price * numberOfDays);
   }
 
   return (
@@ -54,7 +56,13 @@ function FirstStepBooking({
                     return null;
                   })}
                 </ul>
-                <div className="room-price">{room.price} kr.</div>
+                <div className="room-price">
+                  {(room.price * numberOfDays).toLocaleString("da-DK", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}{" "}
+                  kr.
+                </div>
                 {/* Add other room details you want to display */}
               </div>
               <div></div>
