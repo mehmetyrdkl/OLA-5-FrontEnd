@@ -86,13 +86,19 @@
   }
   button {
     color: white;
-    background-color: var(--blue2);
+    pointer-events: none;
+    background-color: var(--blue3);
     padding: 1rem 3rem;
     border-radius: 50px;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     transition: 0.3s;
+  }
+  .active {
+    background-color: var(--blue2);
+    pointer-events: all;
+    cursor: pointer;
   }
   button:hover {
     opacity: 0.9;

@@ -36,11 +36,6 @@ function BookingSidebar({
   const [totalPrice, setTotalPrice] = useState(0);
   const [selectedRoom, setSelectedRoom] = useState({});
   const value = useMyContext();
-  const [userInfo, setUserInfo] = useState({
-    fullname: "",
-    email: "",
-    phone: "",
-  });
   const [bookingStep, setBookingStep] = useState(0);
   const handleCloseBookingSidebar = () => {
     if (bookingStep === 0) {
@@ -57,6 +52,57 @@ function BookingSidebar({
     });
   }
 
+  useEffect(() => {
+    async function prefill() {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          // Handle the case when token is not available
+          return;
+        }
+
+        const response = await fetch(
+          `http://localhost:8080/auth/${localStorage.getItem("user_id")}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          // Handle different types of errors (e.g., unauthorized access)
+          if (response.status === 401) {
+            // Handle unauthorized access
+            // Maybe clear the token and redirect to login
+            localStorage.removeItem("token");
+          }
+          throw new Error("Network response was not ok.");
+        }
+
+        const responseData = await response.json();
+        setFetchedUserInfo(responseData);
+        // Handle the response data as needed
+        // console.log("Response data:", responseData.fullName);
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    }
+
+    prefill();
+  }, []); // Add localStorage.getItem("token") to the dependency array
+
+  const [fetchedUserInfo, setFetchedUserInfo] = useState({});
+
+  const [userInfo, setUserInfo] = useState({
+    _id: "1234567890",
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+  });
+
   return (
     <div
       className={
@@ -66,7 +112,7 @@ function BookingSidebar({
       }
     >
       <div className="booking-sidebar-wrapper">
-        <div className="header-booking">
+        <div className={bookingStep === 4 ? "hidden" : "header-booking"}>
           <div className="close-booking" onClick={handleCloseBookingSidebar}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -170,12 +216,15 @@ function BookingSidebar({
             totalPrice={totalPrice}
             setUserInfo={setUserInfo}
             userInfo={userInfo}
+            fetchedUserInfo={fetchedUserInfo}
           />
         )}
         {/* Guest payment */}
         {bookingStep === 3 && (
           <FourthStepBooking
             selectedRoom={selectedRoom}
+            setBookingStep={setBookingStep}
+            bookingStep={bookingStep}
             selectedHotel={selectedHotel}
             bookingDates={bookingDates}
             totalPrice={totalPrice}
@@ -183,7 +232,17 @@ function BookingSidebar({
           />
         )}
         {/* Booking success */}
-        {bookingStep === 4 && <FinalStepBooking />}
+        {bookingStep === 4 && (
+          <FinalStepBooking
+            selectedRoom={selectedRoom}
+            totalPrice={totalPrice}
+            bookingDates={bookingDates}
+            numberOfGuests={numberOfGuests}
+            selectedHotel={selectedHotel}
+            setBookingStep={setBookingStep}
+            bookingStep={bookingStep}
+          />
+        )}
         {/* footer bar */}
         {/* {bookingStep > 0 && (
           <button onClick={() => setBookingStep(bookingStep - 1)}>

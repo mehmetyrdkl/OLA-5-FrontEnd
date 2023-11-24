@@ -12,6 +12,7 @@ import Cards from "./components/Cards";
 import WelcomeSection from "./components/WelcomeSection";
 import useMyContext from "./MyContext";
 import LogInDropdown from "./components/LogInDropdown";
+import SignUpSidebar from "./components/Sidebars/SignUpSidebar";
 
 export default function Home() {
   const value = useMyContext();
@@ -47,6 +48,7 @@ export default function Home() {
       ></Hero>
       <Cards />
       <LogInDropdown />
+      <SignUpSidebar />
       <WelcomeSection selectedHotel={selectedHotel} />
       <HotelsSidebar setSelectedHotel={setSelectedHotel} />
       <RoomsSidebar setNumberOfGuests={setNumberOfGuests} />

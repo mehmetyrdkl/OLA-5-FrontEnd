@@ -5,6 +5,8 @@ import { useState } from "react";
 
 function FourthStepBooking({
   selectedRoom,
+  setBookingStep,
+  bookingStep,
   selectedHotel,
   bookingDates,
   totalPrice,
@@ -22,7 +24,7 @@ function FourthStepBooking({
 
   async function postData() {
     const data = {
-      user_id: "1234511846789",
+      user_id: userInfo._id,
       hotel_name: selectedHotel.name,
       room_type: selectedRoom.type,
       booking_dates: {
@@ -48,6 +50,7 @@ function FourthStepBooking({
       const responseData = await response.json();
       // Handle the response data as needed
       console.log("Response data:", responseData);
+      setBookingStep(bookingStep + 1);
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
     }
@@ -103,9 +106,9 @@ function FourthStepBooking({
           <div className="info-details">
             <h2>Guest info</h2>
             <ul>
-              <li>{userInfo.fullname}</li>
+              <li>{userInfo.fullName}</li>
               <li>{userInfo.email}</li>
-              <li>{userInfo.phone}</li>
+              <li>{userInfo.phoneNumber}</li>
             </ul>
           </div>
         </div>
@@ -206,7 +209,11 @@ function FourthStepBooking({
         </div>
       </div>
       <div className="booking-footer">
-        <button disabled={!termsAgreed} onClick={() => postData()}>
+        <button
+          disabled={!termsAgreed}
+          onClick={() => postData()}
+          className={termsAgreed ? "active" : ""}
+        >
           Pay
         </button>
       </div>

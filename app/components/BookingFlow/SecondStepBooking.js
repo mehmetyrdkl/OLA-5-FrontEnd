@@ -62,7 +62,10 @@ function SecondStepBooking({
       </div>
       <div className="booking-footer">
         <div>{formattedPrice} kr.</div>
-        <button onClick={() => setBookingStep(bookingStep + 1)}>
+        <button
+          className="active"
+          onClick={() => setBookingStep(bookingStep + 1)}
+        >
           Select{" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"

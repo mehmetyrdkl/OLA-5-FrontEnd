@@ -9,9 +9,18 @@ function ThirdStepBooking({
   totalPrice,
   userInfo,
   setUserInfo,
+  fetchedUserInfo,
 }) {
+  useEffect(() => {
+    // If fetchedUserInfo exists, update userInfo with its data
+    if (fetchedUserInfo) {
+      setUserInfo(fetchedUserInfo);
+    }
+  }, [fetchedUserInfo, setUserInfo]);
+
   const [selectedField, setSelectedField] = useState(null);
   const [allFieldsFilled, setAllFieldsFilled] = useState(false);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserInfo((prevUserInfo) => ({
@@ -21,12 +30,12 @@ function ThirdStepBooking({
   };
 
   useEffect(() => {
-    const { fullname, email, phone } = userInfo;
+    const { fullName, email, phoneNumber } = userInfo;
     // Check if all fields have values
     const fieldsFilled =
-      fullname.trim() !== "" &&
+      fullName.trim() !== "" &&
       email.trim().includes("@") &&
-      phone.trim().length >= 6;
+      phoneNumber.trim().length >= 6;
     setAllFieldsFilled(fieldsFilled);
   }, [userInfo]);
 
@@ -38,15 +47,15 @@ function ThirdStepBooking({
           <div className="input-wrapper">
             <input
               type="text"
-              name="fullname"
-              onFocus={() => setSelectedField("fullname")}
+              name="fullName"
+              onFocus={() => setSelectedField("fullName")}
               onBlur={() => setSelectedField(null)}
               onChange={handleInputChange}
-              value={userInfo.fullname}
+              value={userInfo.fullName}
             />
             <label
               className={`input-label ${
-                (selectedField === "fullname" || userInfo.fullname) && "active"
+                (selectedField === "fullName" || userInfo.fullName) && "active"
               }`}
             >
               Full Name
@@ -72,17 +81,18 @@ function ThirdStepBooking({
           <div className="input-wrapper">
             <input
               type="tel"
-              name="phone"
+              name="phoneNumber"
               maxLength={10}
               pattern="[0-9]{10}"
-              onFocus={() => setSelectedField("phone")}
+              onFocus={() => setSelectedField("phoneNumber")}
               onBlur={() => setSelectedField(null)}
               onChange={handleInputChange}
-              value={userInfo.phone}
+              value={userInfo.phoneNumber}
             />
             <label
               className={`input-label ${
-                (selectedField === "phone" || userInfo.phone) && "active"
+                (selectedField === "phoneNumber" || userInfo.phoneNumber) &&
+                "active"
               }`}
             >
               Phone Number
@@ -92,6 +102,7 @@ function ThirdStepBooking({
       </div>
       <div className="booking-footer">
         <button
+          className={allFieldsFilled ? "active" : ""}
           onClick={() => setBookingStep(bookingStep + 1)}
           disabled={!allFieldsFilled}
         >

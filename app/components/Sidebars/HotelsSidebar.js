@@ -58,7 +58,7 @@ function HotelsSidebar({ setSelectedHotel }) {
       }
     >
       <div className="hotels-sidebar-wrapper">
-        <button className="close-siderbar" onClick={handleCloseSidebar}>
+        <button className="close-sidebar" onClick={handleCloseSidebar}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

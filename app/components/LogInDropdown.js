@@ -7,6 +7,7 @@ function LogInDropdown() {
   const [allFieldsFilled, setAllFieldsFilled] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [listenersActive, setListenersActive] = useState(true);
   const value = useMyContext();
   const dropdownRef = useRef(null); // Reference to the parent div
 
@@ -14,6 +15,7 @@ function LogInDropdown() {
     email: "",
     password: "",
   });
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLoginInfo((prevLoginInfo) => ({
@@ -29,25 +31,39 @@ function LogInDropdown() {
     setAllFieldsFilled(fieldsFilled);
   }, [loginInfo]);
 
+  useEffect(() => {
+    if (value.sidebar === "login") {
+      setListenersActive(true);
+    } else {
+      setListenersActive(false);
+    }
+  }, [value.sidebar]);
+
   // handleClickOutside is recreated only when the 'value' changes.
   const handleClickOutside = useCallback(
     (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target) &&
+        listenersActive
+      ) {
         // Click occurred outside the parent div, close the dropdown
         value.setSidebar(""); // Close the dropdown by setting the sidebar to an empty string
       }
     },
-    [value]
+    [value, listenersActive]
   );
 
   useEffect(() => {
-    // Add event listener on mount
-    document.addEventListener("click", handleClickOutside);
-    // Remove event listener on unmount
+    if (listenersActive) {
+      document.addEventListener("click", handleClickOutside);
+    } else {
+      document.removeEventListener("click", handleClickOutside);
+    }
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [handleClickOutside]);
+  }, [handleClickOutside, listenersActive]);
 
   async function login() {
     const data = {
@@ -69,7 +85,12 @@ function LogInDropdown() {
       }
 
       const responseData = await response.json();
-      value.setLoginToken(responseData);
+      value.setLoginToken(responseData.access_token);
+      const token = responseData.access_token;
+      const userID = responseData.user_id;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user_id", userID);
+
       // Handle the response data as needed
       console.log("Response data:", responseData);
       // Display checkmark
@@ -85,8 +106,9 @@ function LogInDropdown() {
     }
   }
 
-  function signUp() {
+  function openSignUp() {
     if (!loggedIn) {
+      setListenersActive(false);
       value.setSidebar("signUp");
     }
   }
@@ -145,7 +167,7 @@ function LogInDropdown() {
             <li>Don&apos;t have an account?</li>
             <li
               className={loggedIn ? "signup-link inactive" : "signup-link"}
-              onClick={() => value.setSidebar("signUp")}
+              onClick={() => openSignUp()}
             >
               Sign up for Comwell Club
             </li>

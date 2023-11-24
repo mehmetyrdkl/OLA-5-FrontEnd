@@ -22,7 +22,7 @@ function RoomsSidebar({ sidebar, setSidebar, setNumberOfGuests }) {
       }
     >
       <div className="rooms-sidebar-wrapper">
-        <button className="close-siderbar" onClick={handleCloseRoomSidebar}>
+        <button className="close-sidebar" onClick={handleCloseRoomSidebar}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
