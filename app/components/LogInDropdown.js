@@ -6,6 +6,7 @@ function LogInDropdown() {
   const [selectedField, setSelectedField] = useState(null);
   const [allFieldsFilled, setAllFieldsFilled] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const value = useMyContext();
   const dropdownRef = useRef(null); // Reference to the parent div
 
@@ -73,6 +74,7 @@ function LogInDropdown() {
       console.log("Response data:", responseData);
       // Display checkmark
       setLoginSuccess(true);
+      setLoggedIn(true);
       // hide dropdown-wrapper after 1.5s
       function closeLogin() {
         value.setSidebar("");
@@ -80,6 +82,12 @@ function LogInDropdown() {
       setTimeout(closeLogin, 1500);
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
+    }
+  }
+
+  function signUp() {
+    if (!loggedIn) {
+      value.setSidebar("signUp");
     }
   }
 
@@ -135,7 +143,12 @@ function LogInDropdown() {
             <li>Forgot your password?</li>
             <li className="line-through">Reset Password</li>
             <li>Don&apos;t have an account?</li>
-            <li className="signup-link">Sign up for Comwell Club</li>
+            <li
+              className={loggedIn ? "signup-link inactive" : "signup-link"}
+              onClick={() => value.setSidebar("signUp")}
+            >
+              Sign up for Comwell Club
+            </li>
           </ul>
         </div>
         <div className="login-wrapper">

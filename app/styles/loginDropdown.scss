@@ -67,6 +67,10 @@
           color: #182b39;
           cursor: pointer;
         }
+        .inactive {
+          text-decoration: line-through;
+          pointer-events: none;
+        }
       }
     }
     .login-wrapper {
