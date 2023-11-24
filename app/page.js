@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import Cards from "./components/Cards";
 import WelcomeSection from "./components/WelcomeSection";
 import useMyContext from "./MyContext";
+import LogInDropdown from "./components/LogInDropdown";
 
 export default function Home() {
   const value = useMyContext();
@@ -45,6 +46,7 @@ export default function Home() {
         bookingDates={bookingDates}
       ></Hero>
       <Cards />
+      <LogInDropdown />
       <WelcomeSection selectedHotel={selectedHotel} />
       <HotelsSidebar setSelectedHotel={setSelectedHotel} />
       <RoomsSidebar setNumberOfGuests={setNumberOfGuests} />

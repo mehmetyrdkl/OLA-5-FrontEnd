@@ -2,8 +2,11 @@
 
 import React from "react";
 import "../styles/header.scss";
+import useMyContext from "../MyContext";
 
 function Header({ handleClick }) {
+  const value = useMyContext();
+
   return (
     <header>
       <div>
@@ -50,7 +53,10 @@ function Header({ handleClick }) {
             </svg>
           </div>
         </div>
-        <div className="title-wrapper">
+        <div
+          className="title-wrapper"
+          onClick={() => value.setSidebar("login")}
+        >
           <div>Profile</div>
           <div>
             <svg
