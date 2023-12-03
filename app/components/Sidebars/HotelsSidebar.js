@@ -91,7 +91,7 @@ function HotelsSidebar({ setSelectedHotel }) {
               >
                 <div>
                   <Image
-                    src={hotel.image}
+                    src={hotel.hotelImage}
                     alt={hotel.name}
                     width="100"
                     height="100"

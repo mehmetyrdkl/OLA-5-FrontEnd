@@ -14,7 +14,7 @@ function Hero({
   return (
     <section className="hero-section">
       <Image
-        src={selectedHotel.image ? selectedHotel.image : "/hero.webp"}
+        src={selectedHotel.hotelImage ? selectedHotel.hotelImage : "/hero.webp"}
         alt={selectedHotel.name ? selectedHotel.name : "Hero image"}
         layout="fill"
         objectFit="cover"
