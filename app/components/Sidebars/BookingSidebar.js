@@ -53,46 +53,51 @@ function BookingSidebar({
   }
 
   useEffect(() => {
-    async function prefill() {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          // Handle the case when token is not available
-          return;
-        }
-
-        const response = await fetch(
-          `http://localhost:8080/auth/${localStorage.getItem("user_id")}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
+    if (value.sidebar === "booking") {
+      async function prefill() {
+        try {
+          const token = localStorage.getItem("token");
+          if (!token) {
+            // Handle the case when token is not available
+            return;
           }
-        );
 
-        if (!response.ok) {
-          // Handle different types of errors (e.g., unauthorized access)
-          if (response.status === 401) {
-            // Handle unauthorized access
-            // Maybe clear the token and redirect to login
-            localStorage.removeItem("token");
+          const response = await fetch(
+            `http://localhost:8080/auth/${localStorage.getItem("user_id")}`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          if (!response.ok) {
+            // Handle different types of errors (e.g., unauthorized access)
+            if (response.status === 401) {
+              // Handle unauthorized access
+              // Maybe clear the token and redirect to login
+              localStorage.removeItem("token");
+            }
+
+            throw new Error("Network response was not ok.");
+          } else {
+            const responseData = await response.json();
+            setFetchedUserInfo(responseData);
           }
-          throw new Error("Network response was not ok.");
-        }
 
-        const responseData = await response.json();
-        setFetchedUserInfo(responseData);
-        // Handle the response data as needed
-        // console.log("Response data:", responseData.fullName);
-      } catch (error) {
-        console.error("There was a problem with the fetch operation:", error);
+          // Handle the response data as needed
+          // console.log("Response data:", responseData.fullName);
+        } catch (error) {
+          console.error("There was a problem with the fetch operation:", error);
+        }
       }
-    }
 
-    prefill();
-  }, []); // Add localStorage.getItem("token") to the dependency array
+      prefill();
+    } else {
+    }
+  }, [value.sidebar]); // Add localStorage.getItem("token") to the dependency array
 
   const [fetchedUserInfo, setFetchedUserInfo] = useState({});
 

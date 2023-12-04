@@ -13,7 +13,7 @@ function ThirdStepBooking({
 }) {
   useEffect(() => {
     // If fetchedUserInfo exists, update userInfo with its data
-    if (fetchedUserInfo) {
+    if (fetchedUserInfo.fullName) {
       setUserInfo(fetchedUserInfo);
     }
   }, [fetchedUserInfo, setUserInfo]);
@@ -30,13 +30,15 @@ function ThirdStepBooking({
   };
 
   useEffect(() => {
-    const { fullName, email, phoneNumber } = userInfo;
-    // Check if all fields have values
-    const fieldsFilled =
-      fullName.trim() !== "" &&
-      email.trim().includes("@") &&
-      phoneNumber.trim().length >= 6;
-    setAllFieldsFilled(fieldsFilled);
+    if (userInfo) {
+      const { fullName, email, phoneNumber } = userInfo;
+      // Check if all fields have values
+      const fieldsFilled =
+        fullName.trim() !== "" &&
+        email.trim().includes("@") &&
+        phoneNumber.trim().length >= 6;
+      setAllFieldsFilled(fieldsFilled);
+    }
   }, [userInfo]);
 
   return (
