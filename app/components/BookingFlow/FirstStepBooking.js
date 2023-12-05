@@ -11,6 +11,7 @@ function FirstStepBooking({
   setTotalPrice,
 }) {
   function handleRoomSelection(room) {
+    // checking the amount of time you've gone through the booking flow (the other state)
     setBookingStep(bookingStep + 1);
     setSelectedRoom(room);
     setTotalPrice(room.price * numberOfDays);

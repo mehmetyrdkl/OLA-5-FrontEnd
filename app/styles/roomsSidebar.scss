@@ -71,6 +71,9 @@
           background-color: #f4f4f5;
           border: 1px solid #f4f4f5;
         }
+        .hidden {
+          display: none;
+        }
       }
     }
   }
@@ -102,4 +105,9 @@
 }
 .rooms-select {
   width: 366px;
+}
+
+.room-increment {
+  display: flex;
+  justify-content: center;
 }

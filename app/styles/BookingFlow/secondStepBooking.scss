@@ -104,3 +104,15 @@
     opacity: 0.9;
   }
 }
+
+.packages {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  button {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -10,8 +10,8 @@ const Cards = () => {
           src="https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/kampagner/b2b_efter%C3%A5r2023/b2b_kampagnefoto.jpg/2d07f5cd2afd708064ef21f9677cf289.webp"
           alt="Image 1"
           className="card-image"
-          layout="fill"
-          objectFit="cover"
+          fill
+          style={{ objectFit: "cover" }}
         />
         <div className="card-tag">
           <p>See venues and meeting packages</p>
@@ -30,8 +30,8 @@ const Cards = () => {
           src="https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/jul/jul-paa-hotellerne/comwell-centralvaerkstedet-julestemning.jpg/bfb70417588c1835e0dd5823f6adc91c.webp"
           alt="Image 2"
           className="card-image"
-          layout="fill"
-          objectFit="cover"
+          fill
+          style={{ objectFit: "cover" }}
         />
         <div className="card-tag">
           <p>Mark your calendar</p>
@@ -49,8 +49,8 @@ const Cards = () => {
           src="https://cdn.dwarf.dk/comwell-cms-production/img/containers/main/kampagner/black_weekend_2023/spil2_bw.jpg/925fa776956f562d5e94a6a80b27fac8.webp"
           alt="Image 3"
           className="card-image"
-          layout="fill"
-          objectFit="cover"
+          fill
+          style={{ objectFit: "cover" }}
         />
         <div className="card-tag">
           <p>Wind a dream getaway</p>

@@ -1,12 +1,17 @@
 import React from "react";
 import "../../styles/BookingFlow/secondStepBooking.scss";
 import Image from "next/image";
+import RoomPackages from "./RoomPackages";
 
 function SecondStepBooking({
   selectedRoom,
   setBookingStep,
   bookingStep,
   totalPrice,
+  setTotalPrice,
+  setRoomPackage,
+  roomPackage,
+  numberOfDays,
 }) {
   const formattedPrice = totalPrice.toLocaleString("da-DK", {
     minimumFractionDigits: 2,
@@ -60,6 +65,13 @@ function SecondStepBooking({
           </div>
         </div>
       </div>
+      <RoomPackages
+        setRoomPackage={setRoomPackage}
+        roomPackage={roomPackage}
+        totalPrice={totalPrice}
+        setTotalPrice={setTotalPrice}
+        numberOfDays={numberOfDays}
+      />
       <div className="booking-footer">
         <div>{formattedPrice} kr.</div>
         <button

@@ -1,10 +1,9 @@
 "use client";
-import { useState } from "react";
 
 function BookingWidget({
   handleClick,
   selectedHotel,
-  numberOfGuests,
+  rooms,
   setBookingDates,
   bookingDates,
 }) {
@@ -17,6 +16,11 @@ function BookingWidget({
   }
 
   const currentDate = new Date().toISOString().split("T")[0];
+
+  const totalGuests = rooms.reduce(
+    (total, room) => total + room.numberOfGuests,
+    0
+  );
 
   return (
     <div className="widget-wrapper">
@@ -60,10 +64,13 @@ function BookingWidget({
             Rooms
             <div>
               <span>
-                1 Room,
-                {numberOfGuests > 1
-                  ? numberOfGuests + " Persons"
-                  : numberOfGuests + " Person"}{" "}
+                {rooms.length < 2
+                  ? rooms.length + " Room"
+                  : rooms.length + " Rooms"}
+                ,{" "}
+                {totalGuests < 2
+                  ? totalGuests + " person"
+                  : totalGuests + " persons"}
               </span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

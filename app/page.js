@@ -17,11 +17,13 @@ import SignUpSidebar from "./components/Sidebars/SignUpSidebar";
 export default function Home() {
   const value = useMyContext();
   const [selectedHotel, setSelectedHotel] = useState({});
-  const [numberOfGuests, setNumberOfGuests] = useState(1);
+  const [numberOfGuests, setNumberOfGuests] = useState(1); // [2,3]
   const [bookingDates, setBookingDates] = useState({
     check_in: "",
     check_out: "",
   });
+  // const [numberOfRooms, setNumberOfRooms] = useState(1);
+  const [rooms, setRooms] = useState([{ id: 1, numberOfGuests: 1 }]);
 
   const handleClick = (state) => {
     // setDisplayHotelSidebar(!displayHotelSidebar); // Toggles the display state
@@ -42,20 +44,26 @@ export default function Home() {
       <Hero
         handleClick={handleClick}
         selectedHotel={selectedHotel}
-        numberOfGuests={numberOfGuests}
-        setBookingDates={setBookingDates}
+        rooms={rooms}
+        setRooms={setRooms}
         bookingDates={bookingDates}
+        setBookingDates={setBookingDates}
       ></Hero>
       <Cards />
       <LogInDropdown />
       <SignUpSidebar />
       <WelcomeSection selectedHotel={selectedHotel} />
       <HotelsSidebar setSelectedHotel={setSelectedHotel} />
-      <RoomsSidebar setNumberOfGuests={setNumberOfGuests} />
+      <RoomsSidebar
+        setNumberOfGuests={setNumberOfGuests}
+        rooms={rooms}
+        setRooms={setRooms}
+      />
       <BookingSidebar
         bookingDates={bookingDates}
         numberOfGuests={numberOfGuests}
         selectedHotel={selectedHotel}
+        rooms={rooms}
       />
       <Footer />
     </>
