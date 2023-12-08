@@ -24,7 +24,7 @@ export default function Home() {
   });
   // const [numberOfRooms, setNumberOfRooms] = useState(1);
   const [rooms, setRooms] = useState([{ id: 1, numberOfGuests: 1 }]);
-
+  const [addons, setAddons] = useState([]);
   const handleClick = (state) => {
     // setDisplayHotelSidebar(!displayHotelSidebar); // Toggles the display state
     value.setSidebar(state);
@@ -64,6 +64,8 @@ export default function Home() {
         numberOfGuests={numberOfGuests}
         selectedHotel={selectedHotel}
         rooms={rooms}
+        setAddons={setAddons}
+        addons={addons}
       />
       <Footer />
     </>

@@ -8,14 +8,14 @@
   display: none;
 
   .booking-sidebar-wrapper {
-    padding: 0 1rem 1rem;
+    padding: 0 1rem;
     position: fixed;
     width: 930px;
     height: 100%;
     right: 0;
     top: 0;
     background-color: var(--background-color);
-    overflow-y: auto;
+    overflow-y: hidden;
 
     .header-booking {
       display: flex;

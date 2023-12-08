@@ -3,6 +3,7 @@ import "../../styles/bookingSidebar.scss";
 import FirstStepBooking from "../BookingFlow/FirstStepBooking";
 import SecondStepBooking from "../BookingFlow/SecondStepBooking";
 import ThirdStepBooking from "../BookingFlow/ThirdStepBooking";
+import FifthStepBooking from "../BookingFlow/FifthStepBooking";
 import FourthStepBooking from "../BookingFlow/FourthStepBooking";
 import FinalStepBooking from "../BookingFlow/FinalStepBooking";
 import useMyContext from "../../MyContext";
@@ -14,6 +15,8 @@ function BookingSidebar({
   numberOfGuests,
   selectedHotel,
   rooms,
+  setAddons,
+  addons,
 }) {
   const [numberOfDays, setNumberOfDays] = useState(0);
 
@@ -35,6 +38,7 @@ function BookingSidebar({
   }, [bookingDates, setNumberOfDays]);
 
   const [totalPrice, setTotalPrice] = useState(0);
+  const [packagedPrice, setPackagedPrice] = useState(0);
   const [selectedRoom, setSelectedRoom] = useState({});
   const value = useMyContext();
   const [bookingStep, setBookingStep] = useState(0);
@@ -109,7 +113,9 @@ function BookingSidebar({
     phoneNumber: "",
   });
 
-  const [roomPackage, setRoomPackage] = useState("package1");
+  const [roomPackage, setRoomPackage] = useState(
+    "Overnight stay with breakfast"
+  );
 
   const totalGuests = rooms.reduce(
     (total, room) => total + room.numberOfGuests,
@@ -212,6 +218,7 @@ function BookingSidebar({
             bookingStep={bookingStep}
             numberOfDays={numberOfDays}
             setTotalPrice={setTotalPrice}
+            setPackagedPrice={setPackagedPrice}
           />
         )}
         {/* Room details */}
@@ -225,11 +232,24 @@ function BookingSidebar({
             roomPackage={roomPackage}
             numberOfDays={numberOfDays}
             setTotalPrice={setTotalPrice}
+            packagedPrice={packagedPrice}
+          />
+        )}
+        {/* Addons */}
+        {bookingStep === 2 && (
+          <ThirdStepBooking
+            setAddons={setAddons}
+            addons={addons}
+            setBookingStep={setBookingStep}
+            numberOfDays={numberOfDays}
+            bookingStep={bookingStep}
+            setTotalPrice={setTotalPrice}
+            totalPrice={totalPrice}
           />
         )}
         {/* Guest information */}
-        {bookingStep === 2 && (
-          <ThirdStepBooking
+        {bookingStep === 3 && (
+          <FourthStepBooking
             selectedRoom={selectedRoom}
             setBookingStep={setBookingStep}
             bookingStep={bookingStep}
@@ -240,8 +260,8 @@ function BookingSidebar({
           />
         )}
         {/* Guest payment */}
-        {bookingStep === 3 && (
-          <FourthStepBooking
+        {bookingStep === 4 && (
+          <FifthStepBooking
             selectedRoom={selectedRoom}
             setBookingStep={setBookingStep}
             bookingStep={bookingStep}
@@ -252,7 +272,7 @@ function BookingSidebar({
           />
         )}
         {/* Booking success */}
-        {bookingStep === 4 && (
+        {bookingStep === 5 && (
           <FinalStepBooking
             selectedRoom={selectedRoom}
             totalPrice={totalPrice}

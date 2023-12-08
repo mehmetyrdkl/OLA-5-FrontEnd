@@ -12,35 +12,37 @@ function SecondStepBooking({
   setRoomPackage,
   roomPackage,
   numberOfDays,
+  packagedPrice,
 }) {
-  const formattedPrice = totalPrice.toLocaleString("da-DK", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
-
+  function formattedPrice(price) {
+    return price.toLocaleString("da-DK", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  }
   return (
     <>
-      <div className="flex gap-4 items-center justify-center pointer-events-none">
-        <div>
-          <Image
-            src={selectedRoom.roomImage}
-            alt={selectedRoom.type}
-            width={500}
-            height={200}
-            className="rounded-xl"
-          />
-        </div>
-        <div>
-          <Image
-            src={selectedRoom.roomImage2}
-            alt={selectedRoom.type}
-            width={500}
-            height={200}
-            className="rounded-xl"
-          />
-        </div>
-      </div>
       <div className="step-wrapper">
+        <div className="step2-images flex gap-4 items-center justify-center pointer-events-none">
+          <div>
+            <Image
+              src={selectedRoom.roomImage}
+              alt={selectedRoom.type}
+              width={500}
+              height={200}
+              className="rounded-xl"
+            />
+          </div>
+          <div>
+            <Image
+              src={selectedRoom.roomImage2}
+              alt={selectedRoom.type}
+              width={500}
+              height={200}
+              className="rounded-xl"
+            />
+          </div>
+        </div>
         <div className="selected-room">
           <div className="selected-room-title">
             <h2>{selectedRoom.type}</h2>
@@ -64,16 +66,21 @@ function SecondStepBooking({
             <p>{selectedRoom.description}</p>
           </div>
         </div>
+        <RoomPackages
+          setRoomPackage={setRoomPackage}
+          roomPackage={roomPackage}
+          totalPrice={totalPrice}
+          setTotalPrice={setTotalPrice}
+          numberOfDays={numberOfDays}
+          packagedPrice={packagedPrice}
+        />
       </div>
-      <RoomPackages
-        setRoomPackage={setRoomPackage}
-        roomPackage={roomPackage}
-        totalPrice={totalPrice}
-        setTotalPrice={setTotalPrice}
-        numberOfDays={numberOfDays}
-      />
+
       <div className="booking-footer">
-        <div>{formattedPrice} kr.</div>
+        <div className="chosen-package">{roomPackage}</div>
+        <div className="booking-footer-price">
+          {formattedPrice(totalPrice)} kr.
+        </div>
         <button
           className="active"
           onClick={() => setBookingStep(bookingStep + 1)}

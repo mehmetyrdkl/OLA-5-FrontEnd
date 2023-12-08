@@ -1,32 +1,74 @@
-.input-wrapper {
-  position: relative;
-  margin-bottom: 20px;
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"] {
-    padding: 20px 10px 10px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    width: 100%;
-    height: 55px;
+.addons-wrapper {
+  margin: 3.5rem 1rem 0;
+  .addons {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    button {
+      padding: 1.5rem 1rem;
+      width: 100%;
+      text-align: left;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      border: 1px solid #e0e0e0;
+      transition: 0.1s;
+      border-radius: 10px;
+      position: relative;
+      .addon-head-par {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    .addon-heading {
+      font-size: 20px;
+      line-height: 20px;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .addon-paragraph {
+      margin-bottom: 2rem;
+      font-size: 13px;
+      line-height: 16.25px;
+      font-weight: 500;
+    }
+    .addon-price {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 28.6px;
+      margin-right: 2.5rem;
+    }
+    .selected {
+      border: 1px solid black;
+    }
+    .selected:hover {
+      border: 1px solid black;
+    }
+    button:hover,
+    button:hover > .checkmark {
+      border-color: rgba(0, 0, 0, 0.3);
+    }
+    .checkmark {
+      position: absolute;
+      top: 1.1rem;
+      right: 1rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 100%;
+      height: 24px;
+      width: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.1s;
+      svg {
+        color: white;
+      }
+    }
+
+    .chosen {
+      background-color: black;
+      border: 1px solid black;
+    }
   }
-}
-
-.input-label {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  transition: top 0.2s ease, transform 0.2s ease, font-size 0.2s ease;
-  font-weight: 600;
-  pointer-events: none;
-}
-
-.input-label.active {
-  top: 5px;
-  transform: translateY(0);
-  font-size: 0.8em;
-  background-color: transparent;
-  opacity: 0.5;
 }

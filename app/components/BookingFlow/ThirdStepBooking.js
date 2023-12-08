@@ -1,118 +1,136 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../../styles/BookingFlow/thirdStepBooking.scss";
-import BookingOverview from "./BookingOverview";
 
 function ThirdStepBooking({
-  selectedRoom,
+  setAddons,
+  addons,
   setBookingStep,
   bookingStep,
+  numberOfDays,
+  setTotalPrice,
   totalPrice,
-  userInfo,
-  setUserInfo,
-  fetchedUserInfo,
 }) {
-  useEffect(() => {
-    // If fetchedUserInfo exists, update userInfo with its data
-    if (fetchedUserInfo.fullName) {
-      setUserInfo(fetchedUserInfo);
+  function addItem(newItem, price) {
+    const updatedItems = [...addons, newItem];
+    setAddons(updatedItems);
+    setTotalPrice(totalPrice + price);
+  }
+  function removeItem(itemToRemove, price) {
+    const updatedItems = addons.filter((item) => item !== itemToRemove);
+    setAddons(updatedItems);
+    setTotalPrice(totalPrice - price);
+  }
+
+  function handleAddons(item, price) {
+    if (addons.includes(item)) {
+      removeItem(item, price);
+    } else {
+      addItem(item, price);
     }
-  }, [fetchedUserInfo, setUserInfo]);
-
-  const [selectedField, setSelectedField] = useState(null);
-  const [allFieldsFilled, setAllFieldsFilled] = useState(false);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUserInfo((prevUserInfo) => ({
-      ...prevUserInfo,
-      [name]: value,
-    }));
-  };
-
-  useEffect(() => {
-    if (userInfo) {
-      const { fullName, email, phoneNumber } = userInfo;
-      // Check if all fields have values
-      const fieldsFilled =
-        fullName.trim() !== "" &&
-        email.trim().includes("@") &&
-        phoneNumber.trim().length >= 6;
-      setAllFieldsFilled(fieldsFilled);
-    }
-  }, [userInfo]);
+  }
 
   return (
-    <div className="wrapper-with-overview">
-      <div className="step-wrapper">
-        <h2>Guest Information</h2>
-        <form className="guest-info-form">
-          <div className="input-wrapper">
-            <input
-              type="text"
-              name="fullName"
-              onFocus={() => setSelectedField("fullName")}
-              onBlur={() => setSelectedField(null)}
-              onChange={handleInputChange}
-              value={userInfo.fullName}
-            />
-            <label
-              className={`input-label ${
-                (selectedField === "fullName" || userInfo.fullName) && "active"
-              }`}
+    <>
+      <div className="step-wrapper h-full">
+        <div className="addons-wrapper">
+          <h2>Select addons</h2>
+          <div className="addons">
+            <button
+              className={addons.includes("Babycot") ? "selected" : ""}
+              onClick={() => handleAddons("Babycot", 150 * numberOfDays)}
             >
-              Full Name
-            </label>
-          </div>
-          <div className="input-wrapper">
-            <input
-              type="email"
-              name="email"
-              onFocus={() => setSelectedField("email")}
-              onBlur={() => setSelectedField(null)}
-              onChange={handleInputChange}
-              value={userInfo.email}
-            />
-            <label
-              className={`input-label ${
-                (selectedField === "email" || userInfo.email) && "active"
-              }`}
+              <div className="addon-head-par">
+                <span className="addon-heading">Babycot</span>
+                <span className="addon-paragraph">Babycot per night</span>
+              </div>
+              <span className="addon-price">{150 * numberOfDays} kr.</span>
+              <div
+                className={
+                  addons.includes("Babycot") ? "checkmark chosen" : "checkmark"
+                }
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-check2"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                </svg>
+              </div>
+            </button>
+            <button
+              className={addons.includes("Early check-in") ? "selected" : ""}
+              onClick={() => handleAddons("Early check-in", 200)}
             >
-              Email
-            </label>
-          </div>
-          <div className="input-wrapper">
-            <input
-              type="tel"
-              name="phoneNumber"
-              maxLength={10}
-              pattern="[0-9]{10}"
-              onFocus={() => setSelectedField("phoneNumber")}
-              onBlur={() => setSelectedField(null)}
-              onChange={handleInputChange}
-              value={userInfo.phoneNumber}
-            />
-            <label
-              className={`input-label ${
-                (selectedField === "phoneNumber" || userInfo.phoneNumber) &&
-                "active"
-              }`}
+              <div className="addon-head-par">
+                <span className="addon-heading">Early check-in</span>
+                <span className="addon-paragraph">
+                  Check in 2 hours earlier
+                </span>
+              </div>
+              <span className="addon-price">200 kr.</span>
+              <div
+                className={
+                  addons.includes("Early check-in")
+                    ? "checkmark chosen"
+                    : "checkmark"
+                }
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-check2"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                </svg>
+              </div>
+            </button>
+            <button
+              className={addons.includes("Late departure") ? "selected" : ""}
+              onClick={() => handleAddons("Late departure", 200)}
             >
-              Phone Number
-            </label>
+              <div className="addon-head-par">
+                <span className="addon-heading">Late departure</span>
+                <span className="addon-paragraph">Check out at 12am</span>
+              </div>
+              <span className="addon-price">200 kr.</span>
+              <div
+                className={
+                  addons.includes("Late departure")
+                    ? "checkmark chosen"
+                    : "checkmark"
+                }
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-check2"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                </svg>
+              </div>
+            </button>
           </div>
-        </form>
+        </div>
       </div>
       <div className="booking-footer">
         <button
-          className={allFieldsFilled ? "active" : ""}
+          className="active"
           onClick={() => setBookingStep(bookingStep + 1)}
-          disabled={!allFieldsFilled}
         >
-          Continue
+          {addons.length !== 0 ? "Next" : "Continue without addons"}
         </button>
       </div>
-      <BookingOverview selectedRoom={selectedRoom} totalPrice={totalPrice} />
-    </div>
+    </>
   );
 }
 
