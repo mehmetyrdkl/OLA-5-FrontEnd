@@ -9,6 +9,10 @@ function ThirdStepBooking({
   numberOfDays,
   setTotalPrice,
   totalPrice,
+  rooms,
+  roomBookingStep,
+  setRoomBookingStep,
+  roomPackage,
 }) {
   function addItem(newItem, price) {
     const updatedItems = [...addons, newItem];
@@ -26,6 +30,20 @@ function ThirdStepBooking({
       removeItem(item, price);
     } else {
       addItem(item, price);
+    }
+  }
+
+  function handleSteps() {
+    // save packages and addons to another state
+    // setRooms(([roomBookingStep - 1].package = "package" + roomPackage)); LATER
+    console.log(rooms);
+    // set packages to an empty string
+    // set addons to an empty array
+    if (roomBookingStep === rooms.length) {
+      setBookingStep(bookingStep + 1);
+    } else {
+      setRoomBookingStep(roomBookingStep + 1);
+      setBookingStep(0);
     }
   }
 
@@ -123,10 +141,7 @@ function ThirdStepBooking({
         </div>
       </div>
       <div className="booking-footer">
-        <button
-          className="active"
-          onClick={() => setBookingStep(bookingStep + 1)}
-        >
+        <button className="active" onClick={handleSteps}>
           {addons.length !== 0 ? "Next" : "Continue without addons"}
         </button>
       </div>

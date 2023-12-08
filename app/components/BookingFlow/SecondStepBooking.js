@@ -20,6 +20,11 @@ function SecondStepBooking({
       maximumFractionDigits: 2,
     });
   }
+  const packageTitles = [
+    "Overnight stay with breakfast",
+    "Blissful break",
+    "Spadelight at two Comwell-hotels",
+  ];
   return (
     <>
       <div className="step-wrapper">
@@ -77,7 +82,7 @@ function SecondStepBooking({
       </div>
 
       <div className="booking-footer">
-        <div className="chosen-package">{roomPackage}</div>
+        <div className="chosen-package">{packageTitles[roomPackage - 1]}</div>
         <div className="booking-footer-price">
           {formattedPrice(totalPrice)} kr.
         </div>

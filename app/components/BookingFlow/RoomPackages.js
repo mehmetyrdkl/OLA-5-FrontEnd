@@ -23,13 +23,8 @@ function RoomPackages({
       <h2 className="packages-main-heading">Packages</h2>
       <div className="packages">
         <button
-          className={roomPackage === "package1" ? "selected" : ""}
-          onClick={() =>
-            handlePackage(
-              "Overnight stay with breakfast",
-              formattedPrice(packagedPrice)
-            )
-          }
+          className={roomPackage === 1 ? "selected" : ""}
+          onClick={() => handlePackage(1, packagedPrice)}
         >
           <span className="package-heading">Overnight stay with breakfast</span>
           <span className="package-paragraph">
@@ -39,13 +34,7 @@ function RoomPackages({
           <span className="package-price">
             {formattedPrice(packagedPrice)} kr.
           </span>
-          <div
-            className={
-              roomPackage === "Overnight stay with breakfast"
-                ? "chosen checkmark"
-                : "checkmark"
-            }
-          >
+          <div className={roomPackage === 1 ? "chosen checkmark" : "checkmark"}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -59,13 +48,8 @@ function RoomPackages({
           </div>
         </button>
         <button
-          className={roomPackage === "Blissful break" ? "selected" : ""}
-          onClick={() =>
-            handlePackage(
-              "Blissful break",
-              formattedPrice(packagedPrice + 200 * numberOfDays)
-            )
-          }
+          className={roomPackage === 2 ? "selected" : ""}
+          onClick={() => handlePackage(2, packagedPrice + 200 * numberOfDays)}
         >
           <span className="package-heading">Blissful break</span>
           <span className="package-paragraph">
@@ -74,13 +58,7 @@ function RoomPackages({
           <span className="package-price">
             {formattedPrice(packagedPrice + 200 * numberOfDays)} kr.
           </span>
-          <div
-            className={
-              roomPackage === "Blissful break"
-                ? "chosen checkmark"
-                : "checkmark"
-            }
-          >
+          <div className={roomPackage === 2 ? "chosen checkmark" : "checkmark"}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -94,15 +72,8 @@ function RoomPackages({
           </div>
         </button>
         <button
-          className={
-            roomPackage === "Spadelight at two Comwell-hotels" ? "selected" : ""
-          }
-          onClick={() =>
-            handlePackage(
-              "Spadelight at two Comwell-hotels",
-              formattedPrice(packagedPrice + 400 * numberOfDays)
-            )
-          }
+          className={roomPackage === 3 ? "selected" : ""}
+          onClick={() => handlePackage(3, packagedPrice + 400 * numberOfDays)}
         >
           <span className="package-heading">
             Spadelight at two Comwell-hotels
@@ -115,13 +86,7 @@ function RoomPackages({
           <span className="package-price">
             {formattedPrice(packagedPrice + 400 * numberOfDays)} kr.
           </span>
-          <div
-            className={
-              roomPackage === "Spadelight at two Comwell-hotels"
-                ? "chosen checkmark"
-                : "checkmark"
-            }
-          >
+          <div className={roomPackage === 3 ? "chosen checkmark" : "checkmark"}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"

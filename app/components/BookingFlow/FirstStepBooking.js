@@ -10,6 +10,7 @@ function FirstStepBooking({
   numberOfDays,
   setTotalPrice,
   setPackagedPrice,
+  roomBookingStep,
 }) {
   function handleRoomSelection(room) {
     // checking the amount of time you've gone through the booking flow (the other state)
@@ -21,7 +22,7 @@ function FirstStepBooking({
 
   return (
     <div className="step-wrapper step1">
-      <h2>Choose Room</h2>
+      <h2>Choose Room {roomBookingStep}</h2>
       <ul className="booking-rooms-packages">
         <li>Rooms</li>
         <li>Packages</li>

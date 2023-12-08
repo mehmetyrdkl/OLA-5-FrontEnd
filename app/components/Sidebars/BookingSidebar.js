@@ -42,14 +42,8 @@ function BookingSidebar({
   const [selectedRoom, setSelectedRoom] = useState({});
   const value = useMyContext();
   const [bookingStep, setBookingStep] = useState(0);
-  const handleCloseBookingSidebar = () => {
-    if (bookingStep === 0) {
-      value.setSidebar(false);
-      setTotalPrice(0);
-    } else {
-      setBookingStep(bookingStep - 1);
-    }
-  };
+  const [roomBookingStep, setRoomBookingStep] = useState(1);
+
   function formatShortDate(dateString) {
     return new Date(dateString).toLocaleDateString("en-UK", {
       day: "numeric",
@@ -121,6 +115,18 @@ function BookingSidebar({
     (total, room) => total + room.numberOfGuests,
     0
   );
+
+  const handleCloseBookingSidebar = () => {
+    if (roomBookingStep !== 1 && bookingStep === 0) {
+      // setBookingStep(2);
+      setRoomBookingStep(roomBookingStep - 1);
+    } else if (bookingStep === 0) {
+      value.setSidebar(false);
+      setTotalPrice(0);
+    } else {
+      setBookingStep(bookingStep - 1);
+    }
+  };
 
   return (
     <div
@@ -219,6 +225,7 @@ function BookingSidebar({
             numberOfDays={numberOfDays}
             setTotalPrice={setTotalPrice}
             setPackagedPrice={setPackagedPrice}
+            roomBookingStep={roomBookingStep}
           />
         )}
         {/* Room details */}
@@ -245,6 +252,10 @@ function BookingSidebar({
             bookingStep={bookingStep}
             setTotalPrice={setTotalPrice}
             totalPrice={totalPrice}
+            rooms={rooms}
+            setRoomBookingStep={setRoomBookingStep}
+            roomBookingStep={roomBookingStep}
+            roomPackage={roomPackage}
           />
         )}
         {/* Guest information */}
