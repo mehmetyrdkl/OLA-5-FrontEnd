@@ -13,7 +13,9 @@ function ThirdStepBooking({
   setRooms,
   roomBookingStep,
   setRoomBookingStep,
+  setRoomPackage,
   roomPackage,
+  setSelectedRoom,
   selectedRoom,
 }) {
   function addItem(newItem, price) {
@@ -43,8 +45,14 @@ function ThirdStepBooking({
       package: "package" + roomPackage,
       addon: addons,
       roomType: selectedRoom.type,
+      roomPrice: totalPrice,
     };
     setRooms(updatedRooms);
+    // reset states for selectedRoom, totalPrice, roompackage, addons
+    setTotalPrice(0);
+    setAddons([]);
+    setSelectedRoom({});
+    setRoomPackage(1);
     // set packages to an empty string
     // set addons to an empty array
     if (roomBookingStep === rooms.length) {

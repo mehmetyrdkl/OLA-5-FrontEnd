@@ -11,12 +11,10 @@ function RoomsSidebar({
   rooms,
 }) {
   const value = useMyContext();
-  const [numberOfAdults, setNumberOfAdults] = useState(1);
   const handleCloseRoomSidebar = () => {
     value.setSidebar(false);
   };
   const handleGuestNumber = () => {
-    setNumberOfGuests(numberOfAdults);
     handleCloseRoomSidebar();
   };
 

@@ -12,7 +12,6 @@ function BookingSidebar({
   sidebar,
   setSidebar,
   bookingDates,
-  numberOfGuests,
   selectedHotel,
   rooms,
   setRooms,
@@ -108,9 +107,7 @@ function BookingSidebar({
     phoneNumber: "",
   });
 
-  const [roomPackage, setRoomPackage] = useState(
-    "Overnight stay with breakfast"
-  );
+  const [roomPackage, setRoomPackage] = useState(1);
 
   const totalGuests = rooms.reduce(
     (total, room) => total + room.numberOfGuests,
@@ -124,6 +121,8 @@ function BookingSidebar({
     } else if (bookingStep === 0) {
       value.setSidebar(false);
       setTotalPrice(0);
+    } else if (bookingStep === 3) {
+      setBookingStep(0);
     } else {
       setBookingStep(bookingStep - 1);
     }
@@ -138,7 +137,7 @@ function BookingSidebar({
       }
     >
       <div className="booking-sidebar-wrapper">
-        <div className={bookingStep === 4 ? "hidden" : "header-booking"}>
+        <div className={bookingStep === 5 ? "hidden" : "header-booking"}>
           <div className="close-booking" onClick={handleCloseBookingSidebar}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -259,6 +258,8 @@ function BookingSidebar({
             roomBookingStep={roomBookingStep}
             roomPackage={roomPackage}
             selectedRoom={selectedRoom}
+            setSelectedRoom={setSelectedRoom}
+            setRoomPackage={setRoomPackage}
           />
         )}
         {/* Guest information */}
@@ -291,7 +292,6 @@ function BookingSidebar({
             selectedRoom={selectedRoom}
             totalPrice={totalPrice}
             bookingDates={bookingDates}
-            numberOfGuests={numberOfGuests}
             selectedHotel={selectedHotel}
             setBookingStep={setBookingStep}
             bookingStep={bookingStep}

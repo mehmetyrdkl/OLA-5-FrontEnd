@@ -17,7 +17,6 @@ import SignUpSidebar from "./components/Sidebars/SignUpSidebar";
 export default function Home() {
   const value = useMyContext();
   const [selectedHotel, setSelectedHotel] = useState({});
-  const [numberOfGuests, setNumberOfGuests] = useState(1); // [2,3]
   const [bookingDates, setBookingDates] = useState({
     check_in: "",
     check_out: "",
@@ -54,14 +53,9 @@ export default function Home() {
       <SignUpSidebar />
       <WelcomeSection selectedHotel={selectedHotel} />
       <HotelsSidebar setSelectedHotel={setSelectedHotel} />
-      <RoomsSidebar
-        setNumberOfGuests={setNumberOfGuests}
-        rooms={rooms}
-        setRooms={setRooms}
-      />
+      <RoomsSidebar rooms={rooms} setRooms={setRooms} />
       <BookingSidebar
         bookingDates={bookingDates}
-        numberOfGuests={numberOfGuests}
         selectedHotel={selectedHotel}
         setRooms={setRooms}
         rooms={rooms}
