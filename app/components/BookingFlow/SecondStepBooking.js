@@ -13,6 +13,9 @@ function SecondStepBooking({
   roomPackage,
   numberOfDays,
   packagedPrice,
+  setRooms,
+  rooms,
+  roomBookingStep,
 }) {
   function formattedPrice(price) {
     return price.toLocaleString("da-DK", {
@@ -25,6 +28,17 @@ function SecondStepBooking({
     "Blissful break",
     "Spadelight at two Comwell-hotels",
   ];
+
+  function handleSteps() {
+    setBookingStep(bookingStep + 1);
+    const updatedRooms = [...rooms];
+    updatedRooms[roomBookingStep - 1] = {
+      ...updatedRooms[roomBookingStep - 1],
+      roomPrice: totalPrice,
+    };
+    setRooms(updatedRooms);
+  }
+
   return (
     <>
       <div className="step-wrapper">
@@ -86,10 +100,7 @@ function SecondStepBooking({
         <div className="booking-footer-price">
           {formattedPrice(totalPrice)} kr.
         </div>
-        <button
-          className="active"
-          onClick={() => setBookingStep(bookingStep + 1)}
-        >
+        <button className="active" onClick={handleSteps}>
           Select{" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"

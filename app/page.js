@@ -22,7 +22,9 @@ export default function Home() {
     check_out: "",
   });
   // const [numberOfRooms, setNumberOfRooms] = useState(1);
-  const [rooms, setRooms] = useState([{ id: 1, numberOfGuests: 1 }]);
+  const [rooms, setRooms] = useState([
+    { id: 1, numberOfGuests: 1, roomPrice: 0 },
+  ]);
   const [addons, setAddons] = useState([]);
   const handleClick = (state) => {
     // setDisplayHotelSidebar(!displayHotelSidebar); // Toggles the display state

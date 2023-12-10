@@ -117,16 +117,35 @@ function BookingSidebar({
   const handleCloseBookingSidebar = () => {
     if (roomBookingStep !== 1 && bookingStep === 0) {
       // setBookingStep(2);
+      const updatedRooms = [...rooms];
+      updatedRooms[roomBookingStep - 2] = {
+        ...updatedRooms[roomBookingStep - 2],
+        roomPrice: 0,
+      };
+      setRooms(updatedRooms);
       setRoomBookingStep(roomBookingStep - 1);
     } else if (bookingStep === 0) {
       value.setSidebar(false);
       setTotalPrice(0);
     } else if (bookingStep === 3) {
       setBookingStep(0);
+      const updatedRooms = [...rooms];
+      updatedRooms[roomBookingStep - 1] = {
+        ...updatedRooms[roomBookingStep - 1],
+        roomPrice: 0,
+      };
+      setRooms(updatedRooms);
     } else {
       setBookingStep(bookingStep - 1);
     }
   };
+
+  function formattedPrice(price) {
+    return price.toLocaleString("da-DK", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  }
 
   return (
     <div
@@ -208,10 +227,9 @@ function BookingSidebar({
             <span>{selectedHotel.location}</span>
           </div>
           <div className="total-price">
-            {totalPrice.toLocaleString("da-DK", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}{" "}
+            {formattedPrice(
+              rooms.reduce((total, room) => total + room.roomPrice, 0)
+            )}{" "}
             kr.
           </div>
         </div>
@@ -240,6 +258,9 @@ function BookingSidebar({
             numberOfDays={numberOfDays}
             setTotalPrice={setTotalPrice}
             packagedPrice={packagedPrice}
+            setRooms={setRooms}
+            rooms={rooms}
+            roomBookingStep={roomBookingStep}
           />
         )}
         {/* Addons */}
@@ -272,6 +293,9 @@ function BookingSidebar({
             setUserInfo={setUserInfo}
             userInfo={userInfo}
             fetchedUserInfo={fetchedUserInfo}
+            setRooms={setRooms}
+            rooms={rooms}
+            numberOfDays={numberOfDays}
           />
         )}
         {/* Guest payment */}
@@ -284,6 +308,7 @@ function BookingSidebar({
             bookingDates={bookingDates}
             totalPrice={totalPrice}
             userInfo={userInfo}
+            numberOfDays={numberOfDays}
           />
         )}
         {/* Booking success */}

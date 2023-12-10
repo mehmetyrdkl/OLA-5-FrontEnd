@@ -11,6 +11,7 @@ function FifthStepBooking({
   bookingDates,
   totalPrice,
   userInfo,
+  numberOfDays,
 }) {
   const [chosenPayment, setChosenPayment] = useState("card");
   const [termsAgreed, setTermsAgreed] = useState(false);
@@ -217,7 +218,11 @@ function FifthStepBooking({
           Pay
         </button>
       </div>
-      <BookingOverview selectedRoom={selectedRoom} totalPrice={totalPrice} />
+      <BookingOverview
+        selectedRoom={selectedRoom}
+        totalPrice={totalPrice}
+        numberOfDays={numberOfDays}
+      />
     </div>
   );
 }

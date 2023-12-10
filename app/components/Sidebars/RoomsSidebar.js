@@ -21,7 +21,7 @@ function RoomsSidebar({
   const addRoom = () => {
     const lastRoom = rooms[rooms.length - 1];
     const newRoomId = lastRoom ? lastRoom.id + 1 : 1;
-    const newRoom = { id: newRoomId, numberOfGuests: 1 };
+    const newRoom = { id: newRoomId, numberOfGuests: 1, roomPrice: 0 };
     setRooms([...rooms, newRoom]); //[{ id: 1 },{ id: 2 }]
   };
 

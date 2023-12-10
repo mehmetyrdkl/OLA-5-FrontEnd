@@ -42,10 +42,13 @@ function ThirdStepBooking({
     const updatedRooms = [...rooms];
     updatedRooms[roomBookingStep - 1] = {
       ...updatedRooms[roomBookingStep - 1],
-      package: "package" + roomPackage,
-      addon: addons,
-      roomType: selectedRoom.type,
+      package: roomPackage,
+      addons: addons,
+      roomType: selectedRoom,
       roomPrice: totalPrice,
+      fullName: "",
+      email: "",
+      phoneNumber: "",
     };
     setRooms(updatedRooms);
     // reset states for selectedRoom, totalPrice, roompackage, addons
