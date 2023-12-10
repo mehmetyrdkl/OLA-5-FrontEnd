@@ -63,6 +63,7 @@ export default function Home() {
         bookingDates={bookingDates}
         numberOfGuests={numberOfGuests}
         selectedHotel={selectedHotel}
+        setRooms={setRooms}
         rooms={rooms}
         setAddons={setAddons}
         addons={addons}

@@ -15,6 +15,7 @@ function BookingSidebar({
   numberOfGuests,
   selectedHotel,
   rooms,
+  setRooms,
   setAddons,
   addons,
 }) {
@@ -253,9 +254,11 @@ function BookingSidebar({
             setTotalPrice={setTotalPrice}
             totalPrice={totalPrice}
             rooms={rooms}
+            setRooms={setRooms}
             setRoomBookingStep={setRoomBookingStep}
             roomBookingStep={roomBookingStep}
             roomPackage={roomPackage}
+            selectedRoom={selectedRoom}
           />
         )}
         {/* Guest information */}
