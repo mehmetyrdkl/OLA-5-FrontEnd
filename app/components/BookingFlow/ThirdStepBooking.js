@@ -37,6 +37,12 @@ function ThirdStepBooking({
     }
   }
 
+  function formattedPrice(price) {
+    return price.toLocaleString("da-DK", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  }
   function handleSteps() {
     // save packages and addons to another state
     const updatedRooms = [...rooms];
@@ -80,7 +86,9 @@ function ThirdStepBooking({
                 <span className="addon-heading">Babycot</span>
                 <span className="addon-paragraph">Babycot per night</span>
               </div>
-              <span className="addon-price">{150 * numberOfDays} kr.</span>
+              <span className="addon-price">
+                {formattedPrice(150 * numberOfDays)} kr.
+              </span>
               <div
                 className={
                   addons.includes("Babycot") ? "checkmark chosen" : "checkmark"
@@ -108,7 +116,7 @@ function ThirdStepBooking({
                   Check in 2 hours earlier
                 </span>
               </div>
-              <span className="addon-price">200 kr.</span>
+              <span className="addon-price">200,00 kr.</span>
               <div
                 className={
                   addons.includes("Early check-in")
@@ -136,7 +144,7 @@ function ThirdStepBooking({
                 <span className="addon-heading">Late departure</span>
                 <span className="addon-paragraph">Check out at 12am</span>
               </div>
-              <span className="addon-price">200 kr.</span>
+              <span className="addon-price">200,00 kr.</span>
               <div
                 className={
                   addons.includes("Late departure")

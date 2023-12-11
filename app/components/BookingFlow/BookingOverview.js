@@ -2,7 +2,7 @@ import React from "react";
 import "../../styles/BookingFlow/overview.scss";
 import Image from "next/image";
 
-function BookingOverview({ selectedRoom, totalPrice, rooms, numberOfDays }) {
+function BookingOverview({ rooms, numberOfDays }) {
   function formattedPrice(price) {
     return price.toLocaleString("da-DK", {
       minimumFractionDigits: 2,

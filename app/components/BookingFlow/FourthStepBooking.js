@@ -7,8 +7,6 @@ function FourthStepBooking({
   setBookingStep,
   bookingStep,
   totalPrice,
-  userInfo,
-  setUserInfo,
   fetchedUserInfo,
   rooms,
   setRooms,
@@ -17,9 +15,17 @@ function FourthStepBooking({
   useEffect(() => {
     // If fetchedUserInfo exists, update userInfo with its data
     if (fetchedUserInfo.fullName) {
-      setUserInfo(fetchedUserInfo);
+      const updatedRooms = [...rooms];
+      updatedRooms[0] = {
+        ...updatedRooms[0],
+        user_id: fetchedUserInfo._id,
+        fullName: fetchedUserInfo.fullName,
+        email: fetchedUserInfo.email,
+        phoneNumber: fetchedUserInfo.phoneNumber,
+      };
+      setRooms(updatedRooms);
     }
-  }, [fetchedUserInfo, setUserInfo]);
+  }, [fetchedUserInfo]);
 
   const [selectedField, setSelectedField] = useState(null);
   const [allFieldsFilled, setAllFieldsFilled] = useState(false);
@@ -28,20 +34,14 @@ function FourthStepBooking({
     const { name, value } = event.target;
 
     setRooms((prevInfo) => {
-      return prevInfo.map((room) => {
+      return prevInfo.map((room, i) => {
         if (room.id === roomId) {
           return { ...room, [name]: value };
         }
         return room;
       });
     });
-
-    // setUserInfo((prevUserInfo) => ({
-    //   ...prevUserInfo,
-    //   [name]: value,
-    // }));
   };
-
   useEffect(() => {
     const fieldsFilled = rooms.every((room) => {
       return (
@@ -68,9 +68,7 @@ function FourthStepBooking({
                   onFocus={() => setSelectedField("fullName" + room.id)}
                   onBlur={() => setSelectedField(null)}
                   onChange={(e) => handleInputChange(e, room.id)}
-                  value={
-                    userInfo.fullName !== "" ? userInfo.fullName : room.fullName
-                  }
+                  value={room.fullName}
                 />
                 <label
                   className={`input-label ${
@@ -88,7 +86,7 @@ function FourthStepBooking({
                   onFocus={() => setSelectedField("email" + room.id)}
                   onBlur={() => setSelectedField(null)}
                   onChange={(e) => handleInputChange(e, room.id)}
-                  value={userInfo.email !== "" ? userInfo.email : room.email}
+                  value={room.email}
                 />
                 <label
                   className={`input-label ${
@@ -108,11 +106,7 @@ function FourthStepBooking({
                   onFocus={() => setSelectedField("phoneNumber" + room.id)}
                   onBlur={() => setSelectedField(null)}
                   onChange={(e) => handleInputChange(e, room.id)}
-                  value={
-                    userInfo.phoneNumber !== ""
-                      ? userInfo.phoneNumber
-                      : room.phoneNumber
-                  }
+                  value={room.phoneNumber}
                 />
                 <label
                   className={`input-label ${
@@ -128,12 +122,7 @@ function FourthStepBooking({
           ))}
         </div>
 
-        <BookingOverview
-          selectedRoom={selectedRoom}
-          totalPrice={totalPrice}
-          rooms={rooms}
-          numberOfDays={numberOfDays}
-        />
+        <BookingOverview rooms={rooms} numberOfDays={numberOfDays} />
         <div className="booking-footer">
           <button
             className={allFieldsFilled ? "active" : ""}

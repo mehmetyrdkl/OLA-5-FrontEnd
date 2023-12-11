@@ -94,6 +94,7 @@ function BookingWidget({
               onChange={(e) => handleDateChange(e, "check_in")}
               min={currentDate}
               type="date"
+              value={bookingDates.check_in}
             ></input>
           </div>
           <div>
@@ -102,6 +103,7 @@ function BookingWidget({
               onChange={(e) => handleDateChange(e, "check_out")}
               min={bookingDates.check_in}
               type="date"
+              value={bookingDates.check_out}
               disabled={!bookingDates.check_in}
             ></input>
           </div>

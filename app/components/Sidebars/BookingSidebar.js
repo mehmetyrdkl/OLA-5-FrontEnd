@@ -17,6 +17,7 @@ function BookingSidebar({
   setRooms,
   setAddons,
   addons,
+  setBookingDates,
 }) {
   const [numberOfDays, setNumberOfDays] = useState(0);
 
@@ -100,13 +101,6 @@ function BookingSidebar({
 
   const [fetchedUserInfo, setFetchedUserInfo] = useState({});
 
-  const [userInfo, setUserInfo] = useState({
-    _id: "1234567890",
-    fullName: "",
-    email: "",
-    phoneNumber: "",
-  });
-
   const [roomPackage, setRoomPackage] = useState(1);
 
   const totalGuests = rooms.reduce(
@@ -146,6 +140,7 @@ function BookingSidebar({
       maximumFractionDigits: 2,
     });
   }
+  const [reference, setReference] = useState("");
 
   return (
     <div
@@ -290,8 +285,6 @@ function BookingSidebar({
             setBookingStep={setBookingStep}
             bookingStep={bookingStep}
             totalPrice={totalPrice}
-            setUserInfo={setUserInfo}
-            userInfo={userInfo}
             fetchedUserInfo={fetchedUserInfo}
             setRooms={setRooms}
             rooms={rooms}
@@ -307,19 +300,29 @@ function BookingSidebar({
             selectedHotel={selectedHotel}
             bookingDates={bookingDates}
             totalPrice={totalPrice}
-            userInfo={userInfo}
+            rooms={rooms}
             numberOfDays={numberOfDays}
+            setReference={setReference}
           />
         )}
         {/* Booking success */}
         {bookingStep === 5 && (
           <FinalStepBooking
-            selectedRoom={selectedRoom}
-            totalPrice={totalPrice}
             bookingDates={bookingDates}
             selectedHotel={selectedHotel}
-            setBookingStep={setBookingStep}
             bookingStep={bookingStep}
+            setRooms={setRooms}
+            rooms={rooms}
+            numberOfDays={numberOfDays}
+            reference={reference}
+            setNumberOfDays={setNumberOfDays}
+            setSelectedRoom={setSelectedRoom}
+            setBookingStep={setBookingStep}
+            setRoomBookingStep={setRoomBookingStep}
+            setFetchedUserInfo={setFetchedUserInfo}
+            setRoomPackage={setRoomPackage}
+            setReference={setReference}
+            setBookingDates={setBookingDates}
           />
         )}
         {/* footer bar */}

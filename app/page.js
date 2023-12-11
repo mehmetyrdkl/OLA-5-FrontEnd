@@ -63,6 +63,7 @@ export default function Home() {
         rooms={rooms}
         setAddons={setAddons}
         addons={addons}
+        setBookingDates={setBookingDates}
       />
       <Footer />
     </>

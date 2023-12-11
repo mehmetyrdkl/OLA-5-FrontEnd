@@ -4,12 +4,20 @@ import BookingOverview from "./BookingOverview";
 import useMyContext from "../../MyContext";
 
 function FinalStepBooking({
-  selectedRoom,
-  totalPrice,
   bookingDates,
-  numberOfGuests,
+  setRooms,
+  rooms,
   selectedHotel,
+  numberOfDays,
+  reference,
+  setNumberOfDays,
+  setSelectedRoom,
   setBookingStep,
+  setRoomBookingStep,
+  setFetchedUserInfo,
+  setRoomPackage,
+  setReference,
+  setBookingDates,
 }) {
   const value = useMyContext();
   function formatShortDate(dateString) {
@@ -20,16 +28,33 @@ function FinalStepBooking({
   }
 
   function closeBooking() {
+    // reset all states
+    setRooms([{ id: 1, numberOfGuests: 1, roomPrice: 0 }]);
+    setNumberOfDays(0);
+    setSelectedRoom({});
+    setRoomBookingStep(1);
+    setFetchedUserInfo({});
+    setRoomPackage(1);
+    setReference("");
+    setBookingDates({
+      check_in: "",
+      check_out: "",
+    });
     setBookingStep(0);
     value.setSidebar(false);
   }
+
+  const totalGuests = rooms.reduce(
+    (total, room) => total + room.numberOfGuests,
+    0
+  );
 
   return (
     <>
       <div className="booking-complete-wrapper">
         <div className="booking-complete-title">
           <h2>Booking completed</h2>
-          <p>Your booking refrence is: (feature coming soon)</p>
+          <p>Your booking refrence is: {reference}</p>
         </div>
         <div className="booking-complete-details">
           <div className="date-booking">
@@ -63,10 +88,13 @@ function FinalStepBooking({
               <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
             </svg>
             <span>
-              1 Room,{" "}
-              {numberOfGuests > 1
-                ? numberOfGuests + " Persons"
-                : numberOfGuests + " Person"}
+              {rooms.length < 2
+                ? rooms.length + " Room"
+                : rooms.length + " Rooms"}
+              ,{" "}
+              {totalGuests < 2
+                ? totalGuests + " person"
+                : totalGuests + " persons"}
             </span>
           </div>
           <div className="location-booking">
@@ -90,7 +118,7 @@ function FinalStepBooking({
           Go to fronpage
         </button>
       </div>
-      <BookingOverview selectedRoom={selectedRoom} totalPrice={totalPrice} />
+      <BookingOverview rooms={rooms} numberOfDays={numberOfDays} />
     </>
   );
 }

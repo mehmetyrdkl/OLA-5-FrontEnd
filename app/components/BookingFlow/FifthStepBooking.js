@@ -9,9 +9,10 @@ function FifthStepBooking({
   bookingStep,
   selectedHotel,
   bookingDates,
-  totalPrice,
   userInfo,
   numberOfDays,
+  rooms,
+  setReference,
 }) {
   const [chosenPayment, setChosenPayment] = useState("card");
   const [termsAgreed, setTermsAgreed] = useState(false);
@@ -23,18 +24,39 @@ function FifthStepBooking({
     });
   }
 
+  function generateId() {
+    if (rooms[0].user_id) {
+      return rooms[0].user_id;
+    } else {
+      return "1231231";
+    }
+  }
+
+  const totalBookingPrice = rooms.reduce(
+    (total, room) => total + room.roomPrice,
+    0
+  );
+
+  const roomsArray = rooms.map((room) => ({
+    room_type: room.roomType.type,
+    number_of_guests: room.numberOfGuests,
+    guest_full_name: room.fullName,
+    addons: room.addons,
+    packages: "package" + room.package,
+  }));
+
   async function postData() {
     const data = {
-      user_id: userInfo._id,
+      user_id: generateId(),
       hotel_name: selectedHotel.name,
-      room_type: selectedRoom.type,
+      rooms: roomsArray,
       booking_dates: {
         check_in: bookingDates.check_in,
         check_out: bookingDates.check_out,
       },
-      total_price: totalPrice,
+      total_price: totalBookingPrice,
     };
-
+    console.log(data);
     try {
       const response = await fetch("http://localhost:8080/booking", {
         method: "POST",
@@ -49,6 +71,7 @@ function FifthStepBooking({
       }
 
       const responseData = await response.json();
+      setReference(responseData._id);
       // Handle the response data as needed
       console.log("Response data:", responseData);
       setBookingStep(bookingStep + 1);
@@ -106,11 +129,13 @@ function FifthStepBooking({
           </div>
           <div className="info-details">
             <h2>Guest info</h2>
-            <ul>
-              <li>{userInfo.fullName}</li>
-              <li>{userInfo.email}</li>
-              <li>{userInfo.phoneNumber}</li>
-            </ul>
+            {rooms.map((room, index) => (
+              <ul className="mt-2" key={index}>
+                <li>{room.fullName}</li>
+                <li>{room.email}</li>
+                <li>{room.phoneNumber}</li>
+              </ul>
+            ))}
           </div>
         </div>
         {/* Third box */}
@@ -139,7 +164,7 @@ function FifthStepBooking({
         {/* End of boxes */}
       </div>
       <div className="payment-terms">
-        <h2>Payment terms</h2>
+        <h2 className="mt-4">Payment terms</h2>
         <ul>
           <li>
             - To guarantee your booking we will ask for your credit card
@@ -218,11 +243,7 @@ function FifthStepBooking({
           Pay
         </button>
       </div>
-      <BookingOverview
-        selectedRoom={selectedRoom}
-        totalPrice={totalPrice}
-        numberOfDays={numberOfDays}
-      />
+      <BookingOverview numberOfDays={numberOfDays} rooms={rooms} />
     </div>
   );
 }
