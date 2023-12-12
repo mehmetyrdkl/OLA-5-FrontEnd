@@ -8,7 +8,6 @@
   display: none;
 
   .rooms-sidebar-wrapper {
-    padding: 2.5rem 1rem 1rem;
     position: fixed;
     width: 385px;
     height: 100%;
@@ -25,19 +24,28 @@
       aspect-ratio: 1/1;
       position: absolute;
       right: 1rem;
+      top: 2.5rem;
     }
     h2 {
       font-weight: 600;
       line-height: 32px;
       letter-spacing: -0.72px;
       padding-bottom: 32px;
+      padding: 2.5rem 1rem 1rem;
+    }
+    .room {
+      padding: 2.5rem 0rem 1rem;
+      margin: 0 1rem;
+      button {
+        text-decoration-line: underline;
+        font-size: 13px;
+      }
     }
     .room-title {
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.05em;
       line-height: 10px;
-      margin-bottom: 0.75rem;
     }
     .nrAdults {
       display: flex;
@@ -101,13 +109,26 @@
 }
 .rooms-select-container {
   position: fixed;
-  bottom: 1.25rem;
+  bottom: 0;
+  background-color: white;
+  width: 100%;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
 }
 .rooms-select {
-  width: 366px;
+  width: 354px;
 }
 
 .room-increment {
   display: flex;
   justify-content: center;
+  margin-top: 1rem;
+  button {
+    display: flex;
+    gap: 0.5rem;
+    svg {
+      background-color: #e1e1e5;
+      border-radius: 100%;
+    }
+  }
 }

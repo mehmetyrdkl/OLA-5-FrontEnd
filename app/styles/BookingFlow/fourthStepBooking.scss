@@ -1,16 +1,16 @@
 .wrapper-with-overview {
   // height: 100%;
   .booking-footer {
-    position: absolute;
   }
+}
+.heading-margin {
+  margin-top: 6.3rem;
 }
 
 .input-wrapper {
   position: relative;
-  margin-bottom: 20px;
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"] {
+  margin-bottom: 1rem;
+  input {
     padding: 20px 10px 10px 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -18,11 +18,22 @@
     width: 100%;
     height: 55px;
   }
+  .input-error {
+    border-color: var(--red);
+  }
+  .input-label-error {
+    color: var(--red);
+  }
+  .error-message {
+    font-size: 13px;
+    color: var(--red);
+    transition: 0.3s ease-in-out;
+  }
 }
 
 .input-label {
   position: absolute;
-  top: 50%;
+  top: 37%;
   left: 10px;
   transform: translateY(-50%);
   transition: top 0.2s ease, transform 0.2s ease, font-size 0.2s ease;
@@ -36,4 +47,5 @@
   font-size: 0.8em;
   background-color: transparent;
   opacity: 0.5;
+  color: black;
 }

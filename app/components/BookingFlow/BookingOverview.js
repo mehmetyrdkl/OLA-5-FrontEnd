@@ -21,10 +21,12 @@ function BookingOverview({ rooms, numberOfDays }) {
       {rooms.map((room, index) => (
         <div key={index} className="booking-selections-wrapper">
           <div>
-            <span>room {index + 1}</span>
+            <span className="uppercase !text-xs font-semibold opacity-50">
+              room {index + 1}
+            </span>
             <div className="overview-selected-room">
               <Image
-                src={room.roomType.roomImage}
+                src={room.roomType.roomImage2}
                 alt={room.roomType.type}
                 width={64}
                 height={64}
@@ -32,18 +34,23 @@ function BookingOverview({ rooms, numberOfDays }) {
               />
               <div>
                 <div>{room.roomType.type}</div>
-                <div>{packageTitles[room.package - 1]}</div>
+                <div className="opacity-50 text-sm leading-4 pt-1">
+                  {packageTitles[room.package - 1]}
+                </div>
               </div>
-              <div className="roomPrice">
-                {formattedPrice(room.roomPrice)} kr.
+              <div className="roomPrice flex justify-between">
+                {formattedPrice(room.roomPrice)} <p className="pl-1">kr.</p>
               </div>
             </div>
           </div>
-          <ul>
+
+          <ul className="mb-7">
             {room.addons.map((addon, index) => (
-              <li key={index}>
-                <span>{addon}</span>
-                <span>{addon === "Babycot" ? 150 * numberOfDays : 200}</span>
+              <li key={index} className="flex justify-between ">
+                <span className="!font-semibold !opacity-100">{addon}</span>
+                <span className="!font-semibold !opacity-100">
+                  {addon === "Babycot" ? 150 * numberOfDays : 200} kr.
+                </span>
               </li>
             ))}
           </ul>

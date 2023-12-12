@@ -71,52 +71,54 @@ function HotelsSidebar({ setSelectedHotel }) {
           </svg>
         </button>
         <h2>Hotels</h2>
-        <ul className="regions-container border-b border-gray-200">
-          {regions.map((region, index) => (
-            <li
-              onClick={() => handleFilter(index)}
-              className={activeButton === index ? "active-filter" : ""}
-              key={index}
-            >
-              {region}
-            </li>
-          ))}
-        </ul>
-        <ul className="hotels-container">
-          {filteredHotels.map((hotel) => (
-            <li key={hotel._id}>
-              <button
-                onClick={() => setChosenHotel(hotel.name)}
-                className={chosenHotel === hotel.name ? "selected" : ""}
+        <div className="content-container">
+          <ul className="regions-container border-b border-gray-200">
+            {regions.map((region, index) => (
+              <li
+                onClick={() => handleFilter(index)}
+                className={activeButton === index ? "active-filter" : ""}
+                key={index}
               >
-                <div>
-                  <Image
-                    src={hotel.hotelImage}
-                    alt={hotel.name}
-                    width="100"
-                    height="100"
-                  />
-                </div>
-                <div>
-                  <span>{hotel.name}</span>
-                  <span>{hotel.location}</span>
-                </div>
-                <div className={chosenHotel === hotel.name ? "chosen" : ""}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-check2"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-                  </svg>
-                </div>
-              </button>
-            </li>
-          ))}
-        </ul>
+                {region}
+              </li>
+            ))}
+          </ul>
+          <ul className="hotels-container">
+            {filteredHotels.map((hotel) => (
+              <li key={hotel._id}>
+                <button
+                  onClick={() => setChosenHotel(hotel.name)}
+                  className={chosenHotel === hotel.name ? "selected" : ""}
+                >
+                  <div>
+                    <Image
+                      src={hotel.hotelImage}
+                      alt={hotel.name}
+                      width="100"
+                      height="100"
+                    />
+                  </div>
+                  <div>
+                    <span>{hotel.name}</span>
+                    <span>{hotel.location}</span>
+                  </div>
+                  <div className={chosenHotel === hotel.name ? "chosen" : ""}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-check2"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                    </svg>
+                  </div>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
         <div className="hotel-select-container border-t border-gray-200">
           <button
             onClick={handleSelectHotel}

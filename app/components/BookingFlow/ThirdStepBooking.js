@@ -52,9 +52,6 @@ function ThirdStepBooking({
       addons: addons,
       roomType: selectedRoom,
       roomPrice: totalPrice,
-      fullName: "",
-      email: "",
-      phoneNumber: "",
     };
     setRooms(updatedRooms);
     // reset states for selectedRoom, totalPrice, roompackage, addons

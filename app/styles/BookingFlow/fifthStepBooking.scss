@@ -2,7 +2,6 @@
   width: 440px;
   display: flex;
   flex-direction: column;
-  padding-top: 1rem;
   .info-box {
     display: flex;
     gap: 1rem;
@@ -49,6 +48,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding-bottom: 8rem;
   .method {
     display: flex;
     justify-content: space-between;

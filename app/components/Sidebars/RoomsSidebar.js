@@ -21,7 +21,14 @@ function RoomsSidebar({
   const addRoom = () => {
     const lastRoom = rooms[rooms.length - 1];
     const newRoomId = lastRoom ? lastRoom.id + 1 : 1;
-    const newRoom = { id: newRoomId, numberOfGuests: 1, roomPrice: 0 };
+    const newRoom = {
+      id: newRoomId,
+      numberOfGuests: 1,
+      roomPrice: 0,
+      fullName: "",
+      email: "",
+      phoneNumber: "",
+    };
     setRooms([...rooms, newRoom]); //[{ id: 1 },{ id: 2 }]
   };
 
@@ -69,19 +76,19 @@ function RoomsSidebar({
         <h2>Guests & Rooms</h2>
         {rooms.map((room, index) => {
           return (
-            <div key={room.id} className="room">
-              <div>
+            <div key={room.id} className="room border-b border-gray-200">
+              <div className="flex justify-between items-center mb-2">
                 <span className="room-title">ROOM {index + 1} </span>
+                <button
+                  onClick={() => removeRoom(room.id)}
+                  className={rooms.length === 1 ? "hidden" : ""}
+                >
+                  Remove
+                </button>
               </div>
               <div className="nrAdults">
                 <div>
                   <span>Adults</span>
-                  <button
-                    onClick={() => removeRoom(room.id)}
-                    className={rooms.length === 1 ? "hidden" : ""}
-                  >
-                    Remove room
-                  </button>
                 </div>
                 <div>
                   <button

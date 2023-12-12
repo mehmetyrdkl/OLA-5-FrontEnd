@@ -81,9 +81,9 @@ function FifthStepBooking({
   }
 
   return (
-    <div className="step-wrapper">
+    <div className="step-wrapper heading-margin">
       <div className="fourth-step-overview">
-        <h1>My booking</h1>
+        <h2>My booking</h2>
         {/* First box */}
         <div className="info-box">
           <div className="info-box-svg">

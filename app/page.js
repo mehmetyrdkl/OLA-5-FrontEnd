@@ -23,7 +23,14 @@ export default function Home() {
   });
   // const [numberOfRooms, setNumberOfRooms] = useState(1);
   const [rooms, setRooms] = useState([
-    { id: 1, numberOfGuests: 1, roomPrice: 0 },
+    {
+      id: 1,
+      numberOfGuests: 1,
+      roomPrice: 0,
+      fullName: "",
+      email: "",
+      phoneNumber: "",
+    },
   ]);
   const [addons, setAddons] = useState([]);
   const handleClick = (state) => {

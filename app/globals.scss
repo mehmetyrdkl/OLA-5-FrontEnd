@@ -9,6 +9,7 @@
   --blue1: #273a48;
   --blue2: #182b39;
   --blue3: #8b959c;
+  --red: #eb0026;
   // Font
   --font: "Fellix", sans-serif;
   --heading-font-weight: 600;
@@ -42,4 +43,5 @@ h2 {
   grid-template-columns: 60% 40%;
   margin-top: 2.5rem;
   overflow: hidden;
+  padding-bottom: 5rem;
 }

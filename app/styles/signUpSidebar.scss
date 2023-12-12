@@ -23,12 +23,16 @@
       align-items: center;
       width: 32px;
       aspect-ratio: 1/1;
-      position: absolute;
+      position: fixed;
       right: 1rem;
+      z-index: 11;
       top: 2.5rem;
     }
     .signup-title {
       padding: 2.5rem 1rem 0rem;
+      position: fixed;
+      background-color: white;
+      z-index: 10;
       h2 {
         font-size: 36px;
         line-height: 32px;
@@ -41,11 +45,12 @@
         letter-spacing: 0em;
         font-weight: 500;
         margin-top: 1rem;
+        padding-bottom: 1rem;
       }
     }
     form {
       padding: 1rem 1rem;
-      margin-top: 4rem;
+      margin-top: 14rem;
       .input-wrapper {
         position: relative;
         margin-bottom: 10px;
@@ -86,7 +91,7 @@
         }
       }
       .terms-and-conditions {
-        margin-top: 3rem;
+        margin-top: 2rem;
         display: flex;
         align-items: center;
         font-size: 13px;

@@ -142,6 +142,15 @@ function BookingSidebar({
   }
   const [reference, setReference] = useState("");
 
+  function headerClass() {
+    if (bookingStep === 3 || bookingStep === 4) {
+      return "header-booking header-booking-fixed";
+    } else if (bookingStep === 5) {
+      return "hidden";
+    }
+    return "header-booking";
+  }
+
   return (
     <div
       className={
@@ -151,7 +160,7 @@ function BookingSidebar({
       }
     >
       <div className="booking-sidebar-wrapper">
-        <div className={bookingStep === 5 ? "hidden" : "header-booking"}>
+        <div className={headerClass()}>
           <div className="close-booking" onClick={handleCloseBookingSidebar}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -221,7 +230,7 @@ function BookingSidebar({
             </svg>
             <span>{selectedHotel.location}</span>
           </div>
-          <div className="total-price">
+          <div className={bookingStep > 2 ? "hide-price" : "total-price"}>
             {formattedPrice(
               rooms.reduce((total, room) => total + room.roomPrice, 0)
             )}{" "}

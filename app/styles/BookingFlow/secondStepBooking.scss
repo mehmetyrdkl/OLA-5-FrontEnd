@@ -74,9 +74,9 @@
 
 .booking-footer {
   margin-top: auto;
-  position: sticky;
+  position: fixed;
+  width: 930px;
   bottom: 0;
-  width: 100%;
   z-index: 100;
   background-color: white;
   display: flex;
@@ -126,6 +126,7 @@
 .packages-main-wrapper {
   margin-top: 2rem;
   margin-bottom: 2rem;
+  padding-bottom: 6rem;
   .packages {
     display: grid;
     grid-template-columns: 1fr 1fr;
