@@ -10,7 +10,23 @@ function FourthStepBooking({
   numberOfDays,
   setFourthStepContinueClicked,
   fourthStepContinueClicked,
+  fetchedUserInfo,
 }) {
+  useEffect(() => {
+    // If fetchedUserInfo exists, update userInfo with its data
+    if (fetchedUserInfo.fullName) {
+      const updatedRooms = [...rooms];
+      updatedRooms[0] = {
+        ...updatedRooms[0],
+        user_id: fetchedUserInfo._id,
+        fullName: fetchedUserInfo.fullName,
+        email: fetchedUserInfo.email,
+        phoneNumber: fetchedUserInfo.phoneNumber,
+      };
+      setRooms(updatedRooms);
+    }
+  }, [fetchedUserInfo]);
+
   const [selectedField, setSelectedField] = useState(null);
   const [invalidInputs, setInvalidInputs] = useState([]);
 
