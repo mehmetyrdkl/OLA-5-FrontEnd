@@ -89,4 +89,9 @@
       border-radius: 15px;
     }
   }
+  .error-message {
+    font-size: 13px;
+    color: var(--red);
+    transition: 0.3s ease-in-out;
+  }
 }

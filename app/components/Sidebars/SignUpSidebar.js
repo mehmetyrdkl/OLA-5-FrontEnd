@@ -16,7 +16,18 @@ function SignUpSidebar() {
     gender: "",
     birthdate: "",
   });
+  const [inputErrors, setInputErrors] = useState({
+    fullname: false,
+    email: false,
+    zipcode: false,
+    phoneNumber: false,
+    password: false,
+    confirmPassword: false,
+    gender: false,
+    birthdate: false,
+  });
   const [termsAgreed, setTermsAgreed] = useState(false);
+  const [signupClicked, setSignupClicked] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -26,22 +37,19 @@ function SignUpSidebar() {
     }));
   };
 
-  useEffect(() => {
-    const {
-      fullname,
-      email,
-      zipcode,
-      phoneNumber,
-      password,
-      confirmPassword,
-      gender,
-      birthdate,
-    } = signUpInfo;
+  function handleCloseSignUpSidebar() {
+    value.setSidebar(false);
+  }
 
+  const zipcodeRegex = /\d{4}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const numberRegex = /[0-9]{8}/;
+
+  function checkBirthdate(birthdate) {
     const birthDateObj = new Date(birthdate);
     const currentDate = new Date();
     let age = currentDate.getFullYear() - birthDateObj.getFullYear();
-
+    const isAdult = age >= 18;
     const hasBirthdayOccurred =
       currentDate.getMonth() > birthDateObj.getMonth() ||
       (currentDate.getMonth() === birthDateObj.getMonth() &&
@@ -51,67 +59,108 @@ function SignUpSidebar() {
     if (!hasBirthdayOccurred) {
       age--;
     }
-
-    // Check if the user is at least 18 years old
-    const isAdult = age >= 18;
-
-    const fieldsFilled =
-      fullname.trim() !== "" &&
-      email.trim().includes("@") &&
-      zipcode.trim() !== "" &&
-      phoneNumber.trim() !== "" &&
-      password.length >= 6 &&
-      confirmPassword === password &&
-      gender !== "" &&
-      isAdult &&
-      termsAgreed;
-    setAllFieldsFilled(fieldsFilled);
-  }, [signUpInfo, termsAgreed]);
-
-  function handleCloseSignUpSidebar() {
-    value.setSidebar(false);
+    return isAdult;
   }
 
   async function signUp() {
-    const data = {
-      fullName: signUpInfo.fullname,
-      email: signUpInfo.email,
-      zipcode: signUpInfo.zipcode,
-      phoneNumber: signUpInfo.phoneNumber,
-      password: signUpInfo.password,
-      gender: signUpInfo.gender,
-      birthdate: signUpInfo.birthdate,
-    };
+    setSignupClicked(true);
 
-    try {
-      const response = await fetch("http://localhost:8080/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+    let hasErrors = false;
+    const errors = { ...inputErrors };
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok.");
+    if (
+      signUpInfo.fullname.trim() === "" ||
+      !signUpInfo.fullname.includes(" ")
+    ) {
+      errors.fullname = true;
+      hasErrors = true;
+    } else {
+      errors.fullname = false;
+    }
+    if (!emailRegex.test(signUpInfo.email.trim())) {
+      errors.email = true;
+      hasErrors = true;
+    } else {
+      errors.email = false;
+    }
+    if (
+      !zipcodeRegex.test(signUpInfo.zipcode.trim()) ||
+      signUpInfo.zipcode === ""
+    ) {
+      errors.zipcode = true;
+      hasErrors = true;
+    } else {
+      errors.zipcode = false;
+    }
+    if (
+      !numberRegex.test(signUpInfo.phoneNumber.trim()) ||
+      signUpInfo.phoneNumber === ""
+    ) {
+      errors.phoneNumber = true;
+      hasErrors = true;
+    } else {
+      errors.phoneNumber = false;
+    }
+    if (signUpInfo.password.length < 8) {
+      errors.password = true;
+      hasErrors = true;
+    } else {
+      errors.password = false;
+    }
+    if (signUpInfo.confirmPassword !== signUpInfo.password) {
+      errors.confirmPassword = true;
+      hasErrors = true;
+    } else {
+      errors.confirmPassword = false;
+    }
+    if (signUpInfo.gender === "") {
+      errors.gender = true;
+      hasErrors = true;
+    } else {
+      errors.gender = false;
+    }
+    if (checkBirthdate(signUpInfo.birthdate) || signUpInfo.birthdate === "") {
+      errors.birthdate = true;
+      hasErrors = true;
+    } else {
+      errors.birthdate = false;
+    }
+
+    if (hasErrors) {
+      console.log(hasErrors);
+      setInputErrors(errors);
+    } else {
+      const data = {
+        fullName: signUpInfo.fullname,
+        email: signUpInfo.email,
+        zipcode: signUpInfo.zipcode,
+        phoneNumber: signUpInfo.phoneNumber,
+        password: signUpInfo.password,
+        gender: signUpInfo.gender,
+        birthdate: signUpInfo.birthdate,
+      };
+
+      try {
+        const response = await fetch("http://localhost:8080/auth/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok.");
+        }
+
+        const responseData = await response.json();
+
+        console.log("registered!");
+
+        value.setSidebar("");
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
       }
-
-      const responseData = await response.json();
-      // value.setLoginToken(responseData);
-      // Handle the response data as needed
-      // console.log("Response data:", responseData);
-      console.log("registered!");
-      // Display checkmark
-      // setLoginSuccess(true);
-      // setLoggedIn(true);
-      // hide dropdown-wrapper after 1.5s
-      // function closeLogin() {
-      //   value.setSidebar("");
-      // }
-      // setTimeout(closeLogin, 1500);
-      value.setSidebar("");
-    } catch (error) {
-      console.error("There was a problem with the fetch operation:", error);
     }
   }
 
@@ -148,6 +197,9 @@ function SignUpSidebar() {
           {/* Fullname */}
           <div className="input-wrapper">
             <input
+              className={
+                signupClicked && inputErrors.fullname ? "input-error" : ""
+              }
               type="text"
               name="fullname"
               onFocus={() => setSelectedField("fullname")}
@@ -159,13 +211,25 @@ function SignUpSidebar() {
               className={`input-label ${
                 (selectedField === "fullname" || signUpInfo.fullname) &&
                 "active"
+              } ${
+                signupClicked && inputErrors.fullname ? "input-label-error" : ""
               }`}
             >
               Full Name
             </label>
+            <div
+              className={`error-message ${
+                signupClicked && inputErrors.fullname ? "" : "hidden"
+              }`}
+            >
+              *Make sure to fill in your full name
+            </div>
           </div>
           <div className="input-wrapper">
             <input
+              className={
+                signupClicked && inputErrors.email ? "input-error" : ""
+              }
               type="email"
               name="email"
               onFocus={() => setSelectedField("email")}
@@ -176,13 +240,25 @@ function SignUpSidebar() {
             <label
               className={`input-label ${
                 (selectedField === "email" || signUpInfo.email) && "active"
+              } ${
+                signupClicked && inputErrors.email ? "input-label-error" : ""
               }`}
             >
               Email
             </label>
+            <div
+              className={`error-message ${
+                signupClicked && inputErrors.email ? "" : "hidden"
+              }`}
+            >
+              *Please use a valid email address
+            </div>
           </div>
           <div className="input-wrapper">
             <input
+              className={
+                signupClicked && inputErrors.zipcode ? "input-error" : ""
+              }
               type="text"
               name="zipcode"
               onFocus={() => setSelectedField("zipcode")}
@@ -193,13 +269,25 @@ function SignUpSidebar() {
             <label
               className={`input-label ${
                 (selectedField === "zipcode" || signUpInfo.zipcode) && "active"
+              } ${
+                signupClicked && inputErrors.zipcode ? "input-label-error" : ""
               }`}
             >
               Zip Code
             </label>
+            <div
+              className={`error-message ${
+                signupClicked && inputErrors.zipcode ? "" : "hidden"
+              }`}
+            >
+              Make sure to fill in your email
+            </div>
           </div>
           <div className="input-wrapper">
             <input
+              className={
+                signupClicked && inputErrors.phoneNumber ? "input-error" : ""
+              }
               type="tel"
               name="phoneNumber"
               onFocus={() => setSelectedField("phoneNumber")}
@@ -211,13 +299,27 @@ function SignUpSidebar() {
               className={`input-label ${
                 (selectedField === "phoneNumber" || signUpInfo.phoneNumber) &&
                 "active"
+              } ${
+                signupClicked && inputErrors.phoneNumber
+                  ? "input-label-error"
+                  : ""
               }`}
             >
               Phone
             </label>
+            <div
+              className={`error-message ${
+                signupClicked && inputErrors.phoneNumber ? "" : "hidden"
+              }`}
+            >
+              *Please use a valid phone number
+            </div>
           </div>
           <div className="input-wrapper">
             <input
+              className={
+                signupClicked && inputErrors.password ? "input-error" : ""
+              }
               type="password"
               name="password"
               onFocus={() => setSelectedField("password")}
@@ -229,13 +331,27 @@ function SignUpSidebar() {
               className={`input-label ${
                 (selectedField === "password" || signUpInfo.password) &&
                 "active"
+              } ${
+                signupClicked && inputErrors.password ? "input-label-error" : ""
               }`}
             >
               Password
             </label>
+            <div
+              className={`error-message ${
+                signupClicked && inputErrors.password ? "" : "hidden"
+              }`}
+            >
+              *Password must be at least 8 characters
+            </div>
           </div>
           <div className="input-wrapper">
             <input
+              className={
+                signupClicked && inputErrors.confirmPassword
+                  ? "input-error"
+                  : ""
+              }
               type="password"
               name="confirmPassword"
               onFocus={() => setSelectedField("confirmPassword")}
@@ -248,13 +364,27 @@ function SignUpSidebar() {
                 (selectedField === "confirmPassword" ||
                   signUpInfo.confirmPassword) &&
                 "active"
+              } ${
+                signupClicked && inputErrors.confirmPassword
+                  ? "input-label-error"
+                  : ""
               }`}
             >
               Confirm Password
             </label>
+            <div
+              className={`error-message ${
+                signupClicked && inputErrors.confirmPassword ? "" : "hidden"
+              }`}
+            >
+              *Passwords must match
+            </div>
           </div>
           <div className="input-wrapper">
             <select
+              className={
+                signupClicked && inputErrors.gender ? "input-error" : ""
+              }
               name="gender"
               onChange={handleInputChange}
               value={signUpInfo.gender}
@@ -267,13 +397,25 @@ function SignUpSidebar() {
             <label
               className={`input-label ${
                 (selectedField === "gender" || signUpInfo.gender) && "active"
+              } ${
+                signupClicked && inputErrors.gender ? "input-label-error" : ""
               }`}
             >
               Gender
             </label>
+            <div
+              className={`error-message ${
+                signupClicked && inputErrors.gender ? "" : "hidden"
+              }`}
+            >
+              *Please select a gender
+            </div>
           </div>
           <div className="input-wrapper">
             <input
+              className={
+                signupClicked && inputErrors.birthdate ? "input-error" : ""
+              }
               type="date"
               name="birthdate"
               onFocus={() => setSelectedField("birthdate")}
@@ -281,9 +423,24 @@ function SignUpSidebar() {
               onChange={handleInputChange}
               value={signUpInfo.birthdate}
             />
-            <label className="input-label active">Birthdate</label>
+            <label
+              className={`input-label active ${
+                signupClicked && inputErrors.birthdate
+                  ? "input-label-error"
+                  : ""
+              }`}
+            >
+              Birthdate
+            </label>
+            <div
+              className={`error-message ${
+                signupClicked && inputErrors.birthdate ? "" : "hidden"
+              }`}
+            >
+              *You must be at least 18 to sign up for Comwell Club
+            </div>
           </div>
-          <div className="terms-and-conditions">
+          <div className="terms-and-conditions mb-2">
             <input
               type="checkbox"
               checked={termsAgreed}
@@ -291,13 +448,16 @@ function SignUpSidebar() {
             ></input>
             <label>Accept terms and conditions for Comwell Club</label>
           </div>
+          <div
+            className={`error-message ${
+              signupClicked && !termsAgreed ? "" : "hidden"
+            }`}
+          >
+            *You must accept Comwell&apos;s terms and conditions to sign up
+          </div>
         </form>
         <div className="signup-select-container border-t border-gray-200">
-          <button
-            className={allFieldsFilled ? "active" : ""}
-            disabled={!allFieldsFilled}
-            onClick={() => signUp()}
-          >
+          <button className="active" onClick={signUp}>
             Sign up
           </button>
         </div>

@@ -16,6 +16,7 @@ function FifthStepBooking({
 }) {
   const [chosenPayment, setChosenPayment] = useState("card");
   const [termsAgreed, setTermsAgreed] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   function formatShortDate(dateString) {
     return new Date(dateString).toLocaleDateString("en-UK", {
@@ -46,37 +47,41 @@ function FifthStepBooking({
   }));
 
   async function postData() {
-    const data = {
-      user_id: generateId(),
-      hotel_name: selectedHotel.name,
-      rooms: roomsArray,
-      booking_dates: {
-        check_in: bookingDates.check_in,
-        check_out: bookingDates.check_out,
-      },
-      total_price: totalBookingPrice,
-    };
-    console.log(data);
-    try {
-      const response = await fetch("http://localhost:8080/booking", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    if (termsAgreed) {
+      const data = {
+        user_id: generateId(),
+        hotel_name: selectedHotel.name,
+        rooms: roomsArray,
+        booking_dates: {
+          check_in: bookingDates.check_in,
+          check_out: bookingDates.check_out,
         },
-        body: JSON.stringify(data),
-      });
+        total_price: totalBookingPrice,
+      };
+      console.log(data);
+      try {
+        const response = await fetch("http://localhost:8080/booking", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok.");
+        if (!response.ok) {
+          throw new Error("Network response was not ok.");
+        }
+
+        const responseData = await response.json();
+        setReference(responseData._id);
+        // Handle the response data as needed
+        console.log("Response data:", responseData);
+        setBookingStep(bookingStep + 1);
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
       }
-
-      const responseData = await response.json();
-      setReference(responseData._id);
-      // Handle the response data as needed
-      console.log("Response data:", responseData);
-      setBookingStep(bookingStep + 1);
-    } catch (error) {
-      console.error("There was a problem with the fetch operation:", error);
+    } else {
+      setErrorMessage(true);
     }
   }
 
@@ -229,17 +234,23 @@ function FifthStepBooking({
           <input
             type="checkbox"
             checked={termsAgreed}
-            onChange={() => setTermsAgreed((prevState) => !prevState)}
+            onChange={() => {
+              setTermsAgreed((prevState) => !prevState);
+              setErrorMessage(false);
+            }}
           ></input>
           <label>I accept Comwell&apos;s terms and conditions</label>
         </div>
+        <div
+          className={`error-message
+                    ${errorMessage ? "" : "hidden"}`}
+        >
+          * You must accept Comwell&apos;s terms and conditions to continue with
+          your purchase
+        </div>
       </div>
       <div className="booking-footer">
-        <button
-          disabled={!termsAgreed}
-          onClick={() => postData()}
-          className={termsAgreed ? "active" : ""}
-        >
+        <button onClick={() => postData()} className="active">
           Pay
         </button>
       </div>

@@ -345,6 +345,7 @@ function BookingSidebar({
             setRoomPackage={setRoomPackage}
             setReference={setReference}
             setBookingDates={setBookingDates}
+            setFourthStepContinueClicked={setFourthStepContinueClicked}
           />
         )}
         {/* footer bar */}

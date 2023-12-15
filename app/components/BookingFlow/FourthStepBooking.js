@@ -124,7 +124,7 @@ function FourthStepBooking({
                         : "hidden"
                     }`}
                 >
-                  Make sure to fill in your full name
+                  *Make sure to fill in your full name
                 </div>
               </div>
               {/* EMAIL */}
@@ -165,7 +165,7 @@ function FourthStepBooking({
                         : "hidden"
                     }`}
                 >
-                  Please use a valid email address
+                  *Please use a valid email address
                 </div>
               </div>
               {/* PHONENUMBER */}
@@ -209,7 +209,7 @@ function FourthStepBooking({
                         : "hidden"
                     }`}
                 >
-                  Please use a valid phone number
+                  *Please use a valid phone number
                 </div>
               </div>
             </form>

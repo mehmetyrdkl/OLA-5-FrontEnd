@@ -18,6 +18,7 @@ function FinalStepBooking({
   setRoomPackage,
   setReference,
   setBookingDates,
+  setFourthStepContinueClicked,
 }) {
   const value = useMyContext();
   function formatShortDate(dateString) {
@@ -29,7 +30,16 @@ function FinalStepBooking({
 
   function closeBooking() {
     // reset all states
-    setRooms([{ id: 1, numberOfGuests: 1, roomPrice: 0 }]);
+    setRooms([
+      {
+        id: 1,
+        numberOfGuests: 1,
+        roomPrice: 0,
+        fullName: "",
+        email: "",
+        phoneNumber: "",
+      },
+    ]);
     setNumberOfDays(0);
     setSelectedRoom({});
     setRoomBookingStep(1);
@@ -42,6 +52,7 @@ function FinalStepBooking({
     });
     setBookingStep(0);
     value.setSidebar(false);
+    setFourthStepContinueClicked(false);
   }
 
   const totalGuests = rooms.reduce(
