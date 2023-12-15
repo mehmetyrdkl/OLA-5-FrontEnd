@@ -11,7 +11,7 @@
     padding: 1.5rem 1rem 1.5rem 1rem;
     position: fixed;
     width: 300px;
-    height: 348px;
+    height: auto;
     right: 0;
     top: 7rem;
     right: 25%;
@@ -55,12 +55,15 @@
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         li {
           font-size: 13px;
           font-weight: 500;
           line-height: 16.25px;
           color: rgba(0, 0, 0, 0.65);
+        }
+        .error-message {
+          color: var(--red);
         }
         .signup-link {
           text-decoration: underline;
@@ -75,7 +78,7 @@
     }
     .login-wrapper {
       border-top: 1px solid #e5e7eb;
-      padding: 1rem;
+      padding: 1rem 1rem 0;
       button {
         pointer-events: none;
         background-color: var(--blue3);
@@ -145,9 +148,33 @@
     .success-login {
       display: flex;
     }
+    .logged-in-container {
+      padding: 0 0.5rem;
+      display: flex;
+      flex-direction: column;
+      ul {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        li {
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 18px;
+        }
+      }
+      button {
+        border: 1px solid #e5e7eb;
+        border-radius: 40px;
+        padding: 1rem 0;
+        margin-top: 1rem;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+    }
   }
-}
-.opened {
-  display: block;
-  z-index: 2;
+  .opened {
+    display: block;
+    z-index: 2;
+  }
 }

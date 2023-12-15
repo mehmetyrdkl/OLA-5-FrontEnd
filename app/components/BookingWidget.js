@@ -1,7 +1,7 @@
 "use client";
+import useMyContext from "../MyContext";
 
 function BookingWidget({
-  handleClick,
   selectedHotel,
   rooms,
   setBookingDates,
@@ -21,6 +21,7 @@ function BookingWidget({
     (total, room) => total + room.numberOfGuests,
     0
   );
+  const value = useMyContext();
 
   return (
     <div className="widget-wrapper">
@@ -36,7 +37,7 @@ function BookingWidget({
       </ul>
       <div className="flex flex-col space-y-3">
         <div className="hotel-picker input-button">
-          <button onClick={() => handleClick("hotel")}>
+          <button onClick={() => value.setSidebar("hotel")}>
             Hotel
             <div>
               <span>
@@ -60,7 +61,7 @@ function BookingWidget({
           </button>
         </div>
         <div className="room-persons-picker input-button">
-          <button onClick={() => handleClick("rooms")}>
+          <button onClick={() => value.setSidebar("rooms")}>
             Rooms
             <div>
               <span>
@@ -116,7 +117,7 @@ function BookingWidget({
               ? "active search"
               : "search"
           }
-          onClick={() => handleClick("booking")}
+          onClick={() => value.setSidebar("booking")}
         >
           Search
           <svg

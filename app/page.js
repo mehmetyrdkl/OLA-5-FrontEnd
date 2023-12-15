@@ -5,8 +5,6 @@ import Hero from "./components/Hero";
 import HotelsSidebar from "./components/Sidebars/HotelsSidebar";
 import RoomsSidebar from "./components/Sidebars/RoomsSidebar";
 import BookingSidebar from "./components/Sidebars/BookingSidebar";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
 import React, { useState } from "react";
 import Cards from "./components/Cards";
 import WelcomeSection from "./components/WelcomeSection";
@@ -16,6 +14,7 @@ import SignUpSidebar from "./components/Sidebars/SignUpSidebar";
 
 export default function Home() {
   const value = useMyContext();
+  const [fetchedUserInfo, setFetchedUserInfo] = useState({});
   const [selectedHotel, setSelectedHotel] = useState({});
   const [bookingDates, setBookingDates] = useState({
     check_in: "",
@@ -33,10 +32,6 @@ export default function Home() {
     },
   ]);
   const [addons, setAddons] = useState([]);
-  const handleClick = (state) => {
-    // setDisplayHotelSidebar(!displayHotelSidebar); // Toggles the display state
-    value.setSidebar(state);
-  };
 
   return (
     <>
@@ -48,9 +43,8 @@ export default function Home() {
           content="Meeting rooms, conference rooms, venues and lovely rooms. Comwell has it all. We aim high, also regarding sustainability, so you get the best experiences"
         ></meta>
       </Head>
-      <Header handleClick={handleClick} />
+
       <Hero
-        handleClick={handleClick}
         selectedHotel={selectedHotel}
         rooms={rooms}
         setRooms={setRooms}
@@ -58,7 +52,7 @@ export default function Home() {
         setBookingDates={setBookingDates}
       ></Hero>
       <Cards />
-      <LogInDropdown />
+      <LogInDropdown setFetchedUserInfo={setFetchedUserInfo} />
       <SignUpSidebar />
       <WelcomeSection selectedHotel={selectedHotel} />
       <HotelsSidebar setSelectedHotel={setSelectedHotel} />
@@ -71,8 +65,9 @@ export default function Home() {
         setAddons={setAddons}
         addons={addons}
         setBookingDates={setBookingDates}
+        setFetchedUserInfo={setFetchedUserInfo}
+        fetchedUserInfo={fetchedUserInfo}
       />
-      <Footer />
     </>
   );
 }

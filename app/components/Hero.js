@@ -4,13 +4,7 @@ import React from "react";
 import BookingWidget from "./BookingWidget";
 import Image from "next/image";
 
-function Hero({
-  handleClick,
-  selectedHotel,
-  rooms,
-  setBookingDates,
-  bookingDates,
-}) {
+function Hero({ selectedHotel, rooms, setBookingDates, bookingDates }) {
   return (
     <section className="hero-section">
       <Image
@@ -21,7 +15,6 @@ function Hero({
         priority
       />
       <BookingWidget
-        handleClick={handleClick}
         selectedHotel={selectedHotel}
         rooms={rooms}
         setBookingDates={setBookingDates}

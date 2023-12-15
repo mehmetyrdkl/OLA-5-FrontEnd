@@ -18,6 +18,8 @@ function BookingSidebar({
   setAddons,
   addons,
   setBookingDates,
+  setFetchedUserInfo,
+  fetchedUserInfo,
 }) {
   const [numberOfDays, setNumberOfDays] = useState(0);
 
@@ -99,8 +101,6 @@ function BookingSidebar({
     } else {
     }
   }, [value.sidebar]); // Add localStorage.getItem("token") to the dependency array
-
-  const [fetchedUserInfo, setFetchedUserInfo] = useState({});
 
   const [roomPackage, setRoomPackage] = useState(1);
 
