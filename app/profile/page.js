@@ -2,14 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
+import "../styles/profilePage.scss";
 export default function Page() {
-  const token = localStorage.getItem("token");
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
   const [bookingData, setBookingData] = useState([]);
 
   useEffect(() => {
     if (!token) {
       redirect("/");
     } else {
+      console.log(token);
       checkLogin();
     }
     async function checkLogin() {
@@ -54,7 +57,8 @@ export default function Page() {
       });
 
       if (!response.ok) {
-        if (response.status === 401) {
+        if (response.status === 404) {
+          // console.error("no bookings");
         }
 
         throw new Error("Network response was not ok.");
@@ -64,8 +68,25 @@ export default function Page() {
         setBookingData(responseData);
       }
     } catch (error) {
-      console.error("There was a problem with the fetch operation:", error);
+      console.error(error.message);
+
+      // console.error("There was a problem with the fetch operation:", error);
     }
+  }
+
+  function formattedPrice(price) {
+    return price.toLocaleString("da-DK", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  }
+
+  function formatShortDate(dateString) {
+    return new Date(dateString).toLocaleDateString("en-UK", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
   }
 
   return (
@@ -78,8 +99,9 @@ export default function Page() {
       </section>
       <section className="profile-purchase-history">
         <h2>Purchase History</h2>
+        <p>Here you can see your booking history</p>
         <table>
-          <thead>
+          <thead className="border-b border-gray-200">
             <tr>
               <th>Period</th>
               <th>Hotel</th>
@@ -91,23 +113,38 @@ export default function Page() {
             </tr>
           </thead>
           <tbody>
-            {bookingData.map((booking, index) => {
-              <tr key="booking.index">
-                <td>
-                  {booking.booking_dates.check_in}-
-                  {booking.booking_dates.check_out}
-                </td>
-                <td>{booking.hotel_namee}</td>
-                <td>
-                  {booking.rooms.length > 1 &&
-                    booking.rooms.map((room) => room.guest_full_name)}
-                  {booking.rooms.guest_full_name}
-                </td>
-                <td>Booked</td>
-                <td>{booking._id}</td>
-                <td>{booking.total_price}</td>
-              </tr>;
-            })}
+            {bookingData.length === 0 ? (
+              <tr>
+                <td>No bookings found</td>
+              </tr>
+            ) : (
+              bookingData.map((booking, index) => (
+                <tr key={index}>
+                  <td>
+                    {formatShortDate(booking.booking_dates.check_in)} -{" "}
+                    {formatShortDate(booking.booking_dates.check_out)}
+                  </td>
+                  <td>{booking.hotel_name}</td>
+                  <td>
+                    {booking.rooms.length > 1 ? (
+                      <ul className="guest-list">
+                        {booking.rooms.slice(1).map((room, roomIndex) => (
+                          <li key={roomIndex}>{room.guest_full_name}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <div className="single-guest">
+                        {booking.rooms[0].guest_full_name}
+                      </div>
+                    )}
+                  </td>
+                  <td>{booking.rooms[0].guest_full_name}</td>
+                  <td>Booked</td>
+                  <td>{booking._id}</td>
+                  <td>{formattedPrice(booking.total_price)}.kr</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </section>

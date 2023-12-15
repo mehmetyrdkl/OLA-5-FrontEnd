@@ -1,0 +1,49 @@
+.profile-page-wrapper {
+  max-width: 1080px;
+  margin: 0 auto;
+  .profile-purchase-history {
+    margin-top: 20px;
+
+    h2 {
+      font-size: 36px;
+      line-height: 32px;
+      letter-spacing: -0.02em;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 13px;
+      line-height: 16px;
+      letter-spacing: 0em;
+      font-weight: 400;
+    }
+    table {
+      width: 100%;
+      margin-top: 2rem;
+      border-collapse: collapse;
+
+      th {
+        padding: 10px 0;
+        text-align: justify;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      td {
+        padding: 10px 0;
+        text-align: justify;
+        font-size: 13px;
+        line-height: 16px;
+        letter-spacing: 0em;
+        font-weight: 500;
+      }
+      .guest-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li {
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+}

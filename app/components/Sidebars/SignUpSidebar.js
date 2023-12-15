@@ -119,7 +119,7 @@ function SignUpSidebar() {
     } else {
       errors.gender = false;
     }
-    if (checkBirthdate(signUpInfo.birthdate) || signUpInfo.birthdate === "") {
+    if (!checkBirthdate(signUpInfo.birthdate) || signUpInfo.birthdate === "") {
       errors.birthdate = true;
       hasErrors = true;
     } else {
