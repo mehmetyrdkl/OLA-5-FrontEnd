@@ -1,12 +1,16 @@
 "use client";
 
-import React from "react";
+import { useRouter } from "next/navigation";
 import "../styles/header.scss";
 import useMyContext from "../MyContext";
 
 function Header() {
   const value = useMyContext();
-
+  const router = useRouter();
+  const currentURL = typeof window !== "undefined" ? window.location.href : "";
+  const currentPath = router.asPath;
+  console.log(currentURL);
+  console.log(currentPath);
   return (
     <header>
       <div>

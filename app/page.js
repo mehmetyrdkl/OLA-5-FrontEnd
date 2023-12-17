@@ -16,6 +16,7 @@ export default function Home() {
   const value = useMyContext();
   const [fetchedUserInfo, setFetchedUserInfo] = useState({});
   const [selectedHotel, setSelectedHotel] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
   const [bookingDates, setBookingDates] = useState({
     check_in: "",
     check_out: "",
@@ -52,8 +53,12 @@ export default function Home() {
         setBookingDates={setBookingDates}
       ></Hero>
       <Cards />
-      <LogInDropdown setFetchedUserInfo={setFetchedUserInfo} />
-      <SignUpSidebar />
+      <LogInDropdown
+        setFetchedUserInfo={setFetchedUserInfo}
+        setLoggedIn={setLoggedIn}
+        loggedIn={loggedIn}
+      />
+      <SignUpSidebar setLoggedIn={setLoggedIn} />
       <WelcomeSection selectedHotel={selectedHotel} />
       <HotelsSidebar setSelectedHotel={setSelectedHotel} />
       <RoomsSidebar rooms={rooms} setRooms={setRooms} />

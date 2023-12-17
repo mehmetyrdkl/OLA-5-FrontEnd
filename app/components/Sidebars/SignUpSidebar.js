@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "../../styles/signUpSidebar.scss";
 import useMyContext from "@/app/MyContext";
 
-function SignUpSidebar() {
+function SignUpSidebar({ setLoggedIn }) {
   const value = useMyContext();
   const [selectedField, setSelectedField] = useState(null);
   const [allFieldsFilled, setAllFieldsFilled] = useState(false);
@@ -28,6 +28,7 @@ function SignUpSidebar() {
   });
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [signupClicked, setSignupClicked] = useState(false);
+  const [emailInUse, setEmailInUse] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -35,6 +36,7 @@ function SignUpSidebar() {
       ...prevSignUpInfo,
       [name]: value,
     }));
+    setEmailInUse(false);
   };
 
   function handleCloseSignUpSidebar() {
@@ -78,6 +80,9 @@ function SignUpSidebar() {
       errors.fullname = false;
     }
     if (!emailRegex.test(signUpInfo.email.trim())) {
+      errors.email = true;
+      hasErrors = true;
+    } else if (emailInUse) {
       errors.email = true;
       hasErrors = true;
     } else {
@@ -126,10 +131,13 @@ function SignUpSidebar() {
       errors.birthdate = false;
     }
 
-    if (hasErrors) {
+    if (hasErrors || !termsAgreed) {
       console.log(hasErrors);
       setInputErrors(errors);
     } else {
+      console.log("trying to register");
+      setInputErrors(errors);
+
       const data = {
         fullName: signUpInfo.fullname,
         email: signUpInfo.email,
@@ -150,17 +158,57 @@ function SignUpSidebar() {
         });
 
         if (!response.ok) {
-          throw new Error("Network response was not ok.");
+          if (response.status === 409) {
+            throw new Error(
+              "Conflict: There was a conflict with the current state of the resource.",
+              setEmailInUse(true)
+            );
+          } else {
+            throw new Error("Network response was not ok.");
+          }
         }
 
         const responseData = await response.json();
 
         console.log("registered!");
-
         value.setSidebar("");
+        login();
       } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
       }
+    }
+  }
+
+  async function login() {
+    const data = {
+      email: signUpInfo.email,
+      password: signUpInfo.password,
+    };
+
+    try {
+      const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok.");
+      }
+
+      const responseData = await response.json();
+      value.setLoginToken(responseData.access_token);
+      const token = responseData.access_token;
+      const userID = responseData.user_id;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user_id", userID);
+
+      // Handle the response data as needed
+      console.log("Response data:", responseData);
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
     }
   }
 
@@ -251,7 +299,9 @@ function SignUpSidebar() {
                 signupClicked && inputErrors.email ? "" : "hidden"
               }`}
             >
-              *Please use a valid email address
+              {emailInUse
+                ? "*Email is already in use"
+                : "*Please use a valid email address"}
             </div>
           </div>
           <div className="input-wrapper">
@@ -280,7 +330,7 @@ function SignUpSidebar() {
                 signupClicked && inputErrors.zipcode ? "" : "hidden"
               }`}
             >
-              Make sure to fill in your email
+              *Please use a valid zipcode
             </div>
           </div>
           <div className="input-wrapper">

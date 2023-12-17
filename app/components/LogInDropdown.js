@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import "../styles/loginDropdown.scss";
 import useMyContext from "../MyContext";
+import { redirect } from "next/dist/server/api-utils";
 
-function LogInDropdown({ setFetchedUserInfo }) {
+function LogInDropdown({ setFetchedUserInfo, loggedIn, setLoggedIn }) {
   const [selectedField, setSelectedField] = useState(null);
   const [allFieldsFilled, setAllFieldsFilled] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
   const [listenersActive, setListenersActive] = useState(true);
   const value = useMyContext();
   const dropdownRef = useRef(null); // Reference to the parent div
@@ -146,6 +146,7 @@ function LogInDropdown({ setFetchedUserInfo }) {
       password: "",
     });
     setFetchedUserInfo({});
+    redirect("/");
   }
 
   return (

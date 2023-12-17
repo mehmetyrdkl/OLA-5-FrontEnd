@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
+import LogInDropdown from "../components/LogInDropdown";
 import "../styles/profilePage.scss";
 export default function Page() {
   const token =
@@ -91,6 +92,7 @@ export default function Page() {
 
   return (
     <main className="profile-page-wrapper">
+      <LogInDropdown />
       <section className="profile-comwell-club">
         <h2>My Comwell Club</h2>
       </section>
