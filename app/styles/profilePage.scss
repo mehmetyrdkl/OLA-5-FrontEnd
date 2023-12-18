@@ -1,8 +1,135 @@
 .profile-page-wrapper {
-  max-width: 1080px;
+  max-width: 1400px;
   margin: 0 auto;
+  .profile-comwell-club {
+    margin-top: 6rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    // gap: 4rem;
+    .membership-details {
+      h2 {
+        font-size: 36px;
+        line-height: 32px;
+        letter-spacing: -0.02;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      p {
+        font-size: 13px;
+        line-height: 16px;
+        font-weight: 500;
+      }
+    }
+    .membership-card {
+      position: relative;
+
+      div {
+        position: absolute;
+        color: white;
+      }
+      .card-title {
+        top: 2rem;
+        left: 2rem;
+        font-size: 28px;
+        line-height: 27px;
+        letter-spacing: -0.02;
+        font-weight: 600;
+      }
+      .card-name {
+        bottom: 2rem;
+        left: 2rem;
+        display: flex;
+        flex-direction: column;
+        :nth-child(1) {
+          font-size: 13px;
+          line-height: 16px;
+          letter-spacing: 0;
+          font-weight: 500;
+        }
+        :nth-child(2) {
+          font-size: 16px;
+          line-height: 15px;
+          letter-spacing: -0.02;
+          font-weight: 600;
+        }
+      }
+      .card-points {
+        bottom: 2rem;
+        right: 2rem;
+        display: flex;
+        flex-direction: column;
+        :nth-child(1) {
+          font-size: 13px;
+          line-height: 16px;
+          letter-spacing: 0;
+          font-weight: 500;
+        }
+        :nth-child(2) {
+          font-size: 16px;
+          line-height: 15px;
+          letter-spacing: -0.02;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  .profile-reward-card {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    h2 {
+      font-size: 36px;
+      line-height: 32px;
+      letter-spacing: -0.02;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 13px;
+      line-height: 16px;
+      font-weight: 500;
+    }
+    .reward-card {
+      background-color: #f9f6f2;
+      width: 900px;
+      height: max-content;
+      padding: 1.5rem 0;
+      max-width: 900px;
+      ul {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        position: relative;
+        li {
+          width: 5rem;
+          height: 5rem;
+          background-color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 100%;
+        }
+        li.stamp {
+          background-color: #d8c6ae;
+        }
+        .ticket-line {
+          border-radius: 0;
+          width: 2rem;
+          background-color: #f9f6f2;
+          border-left: 3px dashed white;
+        }
+        li:last-child {
+          transform: translate(2.5rem);
+          position: absolute;
+          right: 0;
+        }
+      }
+    }
+  }
   .profile-purchase-history {
     margin-top: 20px;
+    margin-bottom: 6rem;
 
     h2 {
       font-size: 36px;

@@ -3,7 +3,7 @@ import "../styles/loginDropdown.scss";
 import useMyContext from "../MyContext";
 import { redirect } from "next/dist/server/api-utils";
 
-function LogInDropdown({ setFetchedUserInfo, loggedIn, setLoggedIn }) {
+function LogInDropdown() {
   const [selectedField, setSelectedField] = useState(null);
   const [allFieldsFilled, setAllFieldsFilled] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
@@ -39,7 +39,7 @@ function LogInDropdown({ setFetchedUserInfo, loggedIn, setLoggedIn }) {
     if (value.sidebar === "login") {
       setListenersActive(true);
       if (localStorage.getItem("token")) {
-        setLoggedIn(true);
+        value.setLoggedIn(true);
       }
     } else {
       setListenersActive(false);
@@ -118,7 +118,7 @@ function LogInDropdown({ setFetchedUserInfo, loggedIn, setLoggedIn }) {
       // hide dropdown-wrapper after 1.5s
       function closeLogin() {
         setErrorMessage("");
-        setLoggedIn(true);
+        value.setLoggedIn(true);
         // set state to true to display menu
         // value.setSidebar("");
       }
@@ -130,14 +130,14 @@ function LogInDropdown({ setFetchedUserInfo, loggedIn, setLoggedIn }) {
   }
 
   function openSignUp() {
-    if (!loggedIn) {
+    if (!value.loggedIn) {
       setListenersActive(false);
       value.setSidebar("signUp");
     }
   }
 
   function signOut() {
-    setLoggedIn(false);
+    value.setLoggedIn(false);
     setLoginSuccess(false);
     localStorage.removeItem("token");
     localStorage.removeItem("user_id");
@@ -145,8 +145,7 @@ function LogInDropdown({ setFetchedUserInfo, loggedIn, setLoggedIn }) {
       email: "",
       password: "",
     });
-    setFetchedUserInfo({});
-    redirect("/");
+    value.setFetchedUserInfo({});
   }
 
   return (
@@ -158,7 +157,7 @@ function LogInDropdown({ setFetchedUserInfo, loggedIn, setLoggedIn }) {
       }
     >
       <div className="dropdown-container" ref={dropdownRef}>
-        {!loggedIn ? (
+        {!value.loggedIn ? (
           <div>
             <form>
               <div className="input-wrapper">
@@ -206,7 +205,9 @@ function LogInDropdown({ setFetchedUserInfo, loggedIn, setLoggedIn }) {
                 <li className="error-message">{errorMessage}</li>
                 <li>Don&apos;t have an account?</li>
                 <li
-                  className={loggedIn ? "signup-link inactive" : "signup-link"}
+                  className={
+                    value.loggedIn ? "signup-link inactive" : "signup-link"
+                  }
                   onClick={() => openSignUp()}
                 >
                   Sign up for Comwell Club

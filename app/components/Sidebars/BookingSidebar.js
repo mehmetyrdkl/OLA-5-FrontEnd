@@ -18,8 +18,6 @@ function BookingSidebar({
   setAddons,
   addons,
   setBookingDates,
-  setFetchedUserInfo,
-  fetchedUserInfo,
 }) {
   const [numberOfDays, setNumberOfDays] = useState(0);
 
@@ -87,7 +85,7 @@ function BookingSidebar({
             throw new Error("Network response was not ok.");
           } else {
             const responseData = await response.json();
-            setFetchedUserInfo(responseData);
+            value.setFetchedUserInfo(responseData);
           }
 
           // Handle the response data as needed
@@ -305,7 +303,6 @@ function BookingSidebar({
             setBookingStep={setBookingStep}
             bookingStep={bookingStep}
             totalPrice={totalPrice}
-            fetchedUserInfo={fetchedUserInfo}
             setRooms={setRooms}
             rooms={rooms}
             numberOfDays={numberOfDays}
@@ -341,7 +338,6 @@ function BookingSidebar({
             setSelectedRoom={setSelectedRoom}
             setBookingStep={setBookingStep}
             setRoomBookingStep={setRoomBookingStep}
-            setFetchedUserInfo={setFetchedUserInfo}
             setRoomPackage={setRoomPackage}
             setReference={setReference}
             setBookingDates={setBookingDates}

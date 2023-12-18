@@ -56,7 +56,20 @@ footer {
     }
   }
 }
-
 .instagram {
   color: var(--blue2);
+}
+footer.profile {
+  background-color: #bea179;
+  nav li.not_highlighted {
+    color: white;
+    opacity: 0.4;
+  }
+}
+.socials.profile {
+  background-color: #aa8d65;
+  select {
+    background-color: white;
+    color: black;
+  }
 }

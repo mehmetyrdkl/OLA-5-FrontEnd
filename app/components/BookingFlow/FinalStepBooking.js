@@ -14,7 +14,6 @@ function FinalStepBooking({
   setSelectedRoom,
   setBookingStep,
   setRoomBookingStep,
-  setFetchedUserInfo,
   setRoomPackage,
   setReference,
   setBookingDates,
@@ -43,7 +42,7 @@ function FinalStepBooking({
     setNumberOfDays(0);
     setSelectedRoom({});
     setRoomBookingStep(1);
-    setFetchedUserInfo({});
+    value.setFetchedUserInfo({});
     setRoomPackage(1);
     setReference("");
     setBookingDates({

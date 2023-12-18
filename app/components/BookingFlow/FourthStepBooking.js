@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/BookingFlow/fourthStepBooking.scss";
 import BookingOverview from "./BookingOverview";
+import useMyContext from "../../MyContext";
 
 function FourthStepBooking({
   setBookingStep,
@@ -10,22 +11,22 @@ function FourthStepBooking({
   numberOfDays,
   setFourthStepContinueClicked,
   fourthStepContinueClicked,
-  fetchedUserInfo,
 }) {
+  const value = useMyContext();
   useEffect(() => {
     // If fetchedUserInfo exists, update userInfo with its data
-    if (fetchedUserInfo.fullName) {
+    if (value.fetchedUserInfo.fullName) {
       const updatedRooms = [...rooms];
       updatedRooms[0] = {
         ...updatedRooms[0],
-        user_id: fetchedUserInfo._id,
-        fullName: fetchedUserInfo.fullName,
-        email: fetchedUserInfo.email,
-        phoneNumber: fetchedUserInfo.phoneNumber,
+        user_id: value.fetchedUserInfo._id,
+        fullName: value.fetchedUserInfo.fullName,
+        email: value.fetchedUserInfo.email,
+        phoneNumber: value.fetchedUserInfo.phoneNumber,
       };
       setRooms(updatedRooms);
     }
-  }, [fetchedUserInfo]);
+  }, [value.fetchedUserInfo]);
 
   const [selectedField, setSelectedField] = useState(null);
   const [invalidInputs, setInvalidInputs] = useState([]);

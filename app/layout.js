@@ -12,12 +12,18 @@ import Footer from "./components/Footer";
 export default function RootLayout({ children }) {
   const [sidebar, setSidebar] = useState(false);
   const [loginToken, setLoginToken] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [fetchedUserInfo, setFetchedUserInfo] = useState({});
 
   const contextValue = {
     sidebar,
     setSidebar,
     loginToken,
     setLoginToken,
+    loggedIn,
+    setLoggedIn,
+    fetchedUserInfo,
+    setFetchedUserInfo,
   };
 
   return (

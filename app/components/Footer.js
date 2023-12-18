@@ -2,8 +2,11 @@
 
 import React from "react";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 function Footer() {
+  const pathname = usePathname();
+
   const [hoveredItem, setHoveredItem] = useState(null);
 
   const handleMouseOver = (index) => {
@@ -23,7 +26,7 @@ function Footer() {
   ];
 
   return (
-    <footer>
+    <footer className={pathname === "/profile" ? "profile" : ""}>
       <div className="upper_footer">
         <nav>
           <ul>
@@ -79,7 +82,7 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <div className="socials">
+      <div className={pathname === "/profile" ? "socials profile" : "socials"}>
         <div className="footer_logo">
           <svg
             enableBackground="new 0 0 500 144"

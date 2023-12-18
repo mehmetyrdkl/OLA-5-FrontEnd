@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "../../styles/signUpSidebar.scss";
 import useMyContext from "@/app/MyContext";
 
-function SignUpSidebar({ setLoggedIn }) {
+function SignUpSidebar() {
   const value = useMyContext();
   const [selectedField, setSelectedField] = useState(null);
   const [allFieldsFilled, setAllFieldsFilled] = useState(false);
