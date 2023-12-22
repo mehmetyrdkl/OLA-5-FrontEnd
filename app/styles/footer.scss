@@ -4,7 +4,7 @@ footer {
   .upper_footer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    padding: 3rem 10% 0;
+    padding: 3rem 13% 0;
     min-height: 600px;
     nav {
       font-size: 36px;
@@ -26,7 +26,7 @@ footer {
   }
   .socials {
     height: 80px;
-    padding: 0 10%;
+    padding: 0 13%;
     background-color: var(--blue2);
     display: flex;
     justify-content: space-between;
