@@ -13,6 +13,10 @@ export default function Page() {
   const [bookingData, setBookingData] = useState([]);
   const [numberOfNights, setNumberOfNights] = useState(0);
   const value = useMyContext();
+  const [loginInfo, setLoginInfo] = useState({
+    email: "",
+    password: "",
+  });
 
   useEffect(() => {
     setBookingData([]);
@@ -125,7 +129,7 @@ export default function Page() {
     <main className="profile-page-wrapper">
       <LogInDropdown />
       {!value.loggedIn ? (
-        <Login />
+        <Login loginInfo={loginInfo} setLoginInfo={setLoginInfo} />
       ) : (
         <div className="flex flex-col gap-28">
           <section className="profile-comwell-club">
@@ -148,7 +152,7 @@ export default function Page() {
               </div>
               <div className="card-points">
                 <span>Points</span>
-                <span>25 Points</span>
+                <span>{bookingData.length * 100 + 25} Points</span>
               </div>
             </div>
           </section>
@@ -182,7 +186,7 @@ export default function Page() {
                 <p>
                   You are entitled to 1 overnight stay at any of our hotels!
                 </p>
-                <button>Redeem</button>
+                <button className="line-through">Redeem</button>
               </div>
             )}
           </section>
