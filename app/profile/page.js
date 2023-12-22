@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { redirect } from "next/navigation";
 import Image from "next/image";
 import LogInDropdown from "../components/LogInDropdown";
-import Login from "./components/login";
+import Login from "./components/Login";
 import membershipCard from "./assets/membership-card.png";
 import "../styles/profilePage.scss";
 import useMyContext from "@/app/MyContext";
@@ -12,15 +11,13 @@ export default function Page() {
   const token =
     typeof window !== "undefined" ? localStorage.getItem("token") : null;
   const [bookingData, setBookingData] = useState([]);
-  const [userInfo, setUserInfo] = useState("");
   const [numberOfNights, setNumberOfNights] = useState(0);
   const value = useMyContext();
 
   useEffect(() => {
+    setBookingData([]);
     if (!token) {
-      redirect("/");
     } else {
-      // console.log(token);
       checkLogin();
     }
     async function checkLogin() {
@@ -39,7 +36,6 @@ export default function Page() {
         if (!response.ok) {
           if (response.status === 401) {
             localStorage.removeItem("token");
-            redirect("/");
           }
 
           throw new Error("Network response was not ok.");
@@ -47,14 +43,14 @@ export default function Page() {
           const responseData = await response.json();
           // call another fetch request
           getBookings();
-          setUserInfo(responseData.fullName);
+          value.setFullName(responseData.fullName);
           value.setLoggedIn(true);
         }
       } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
       }
     }
-  }, []);
+  }, [value.loggedIn]);
 
   async function getBookings() {
     try {
@@ -74,7 +70,9 @@ export default function Page() {
         throw new Error("Network response was not ok.");
       } else {
         const responseData = await response.json();
+
         setBookingData(responseData);
+        calculateNights(responseData);
       }
     } catch (error) {
       console.error(error.message);
@@ -83,11 +81,7 @@ export default function Page() {
     }
   }
 
-  useEffect(() => {
-    calculateNights();
-  }, [bookingData]);
-
-  function calculateNights() {
+  function calculateNights(data) {
     function calculateNumberOfNights(checkIn, checkOut) {
       const checkInDate = new Date(checkIn);
       const checkOutDate = new Date(checkOut);
@@ -97,12 +91,18 @@ export default function Page() {
 
     let totalNights = 0;
 
-    if (bookingData.length >= 1) {
-      bookingData.forEach((booking) => {
+    if (data.length >= 1) {
+      data.forEach((booking) => {
         const { check_in, check_out } = booking.booking_dates;
         totalNights += calculateNumberOfNights(check_in, check_out);
       });
-      console.log(totalNights);
+      setNumberOfNights(totalNights);
+      const rewardCard = document.querySelectorAll(".reward-card li");
+      rewardCard.forEach((item, index) => {
+        if (index < totalNights && index < 8) {
+          item.classList.add("stamp");
+        }
+      });
     }
   }
 
@@ -144,7 +144,7 @@ export default function Page() {
               <div className="card-title">Membership</div>
               <div className="card-name">
                 <span>Name</span>
-                <span>{userInfo}</span>
+                <span>{value.fullName}</span>
               </div>
               <div className="card-points">
                 <span>Points</span>
@@ -177,6 +177,14 @@ export default function Page() {
                 <li> </li>
               </ul>
             </div>
+            {numberOfNights >= 8 && (
+              <div className="reward-message">
+                <p>
+                  You are entitled to 1 overnight stay at any of our hotels!
+                </p>
+                <button>Redeem</button>
+              </div>
+            )}
           </section>
           <section className="profile-purchase-history">
             <h2>Purchase History</h2>

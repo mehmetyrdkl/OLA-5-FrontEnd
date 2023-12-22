@@ -38,9 +38,6 @@ function LogInDropdown() {
   useEffect(() => {
     if (value.sidebar === "login") {
       setListenersActive(true);
-      if (localStorage.getItem("token")) {
-        value.setLoggedIn(true);
-      }
     } else {
       setListenersActive(false);
     }
@@ -105,13 +102,14 @@ function LogInDropdown() {
 
       const responseData = await response.json();
       value.setLoginToken(responseData.access_token);
+      value.setFullName(responseData.fullName);
       const token = responseData.access_token;
       const userID = responseData.user_id;
       localStorage.setItem("token", token);
       localStorage.setItem("user_id", userID);
 
       // Handle the response data as needed
-      console.log("Response data:", responseData);
+      // console.log("Response data:", responseData);
       // Display checkmark
       setLoginSuccess(true);
 
@@ -146,7 +144,46 @@ function LogInDropdown() {
       password: "",
     });
     value.setFetchedUserInfo({});
+    value.setFullName("");
   }
+
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("token") : null;
+  useEffect(() => {
+    if (token) {
+      // console.log(token);
+      checkLogin();
+    }
+    async function checkLogin() {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/auth/${localStorage.getItem("user_id")}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          if (response.status === 401) {
+            localStorage.removeItem("token");
+          }
+
+          throw new Error("Network response was not ok.");
+        } else {
+          const responseData = await response.json();
+          // call another fetch request
+          value.setFullName(responseData.fullName);
+          value.setLoggedIn(true);
+        }
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    }
+  }, []);
 
   return (
     <div

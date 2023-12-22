@@ -1,4 +1,5 @@
 "use client";
+import { useState, useEffect } from "react";
 
 import "../styles/header.scss";
 import useMyContext from "../MyContext";
@@ -38,7 +39,11 @@ function Header() {
       </div>
       <div className="nav-controls">
         <div
-          className="title-wrapper"
+          className={
+            pathname === "/profile"
+              ? "title-wrapper locations-disabled"
+              : "title-wrapper"
+          }
           onClick={() => value.setSidebar("hotel")}
         >
           <div>Locations</div>
@@ -63,7 +68,9 @@ function Header() {
           className="title-wrapper"
           onClick={() => value.setSidebar("login")}
         >
-          <div>Profile</div>
+          <div>
+            {value.fullName !== "" ? value.fullName.split(" ")[0] : "Profile"}
+          </div>
           <div>
             <svg
               data-v-636226b5=""

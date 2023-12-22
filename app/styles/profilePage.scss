@@ -111,7 +111,7 @@
           border-radius: 100%;
         }
         li.stamp {
-          background-color: #d8c6ae;
+          background-color: #f3eade;
         }
         .ticket-line {
           border-radius: 0;
@@ -124,6 +124,24 @@
           position: absolute;
           right: 0;
         }
+      }
+    }
+    .reward-message {
+      grid-column: 2/3;
+      color: #aa8d65;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      button {
+        margin-right: 2rem;
+        background-color: #aa8d65;
+        color: white;
+        padding: 0.3rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 10px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
       }
     }
   }

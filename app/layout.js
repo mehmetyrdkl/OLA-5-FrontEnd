@@ -14,6 +14,7 @@ export default function RootLayout({ children }) {
   const [loginToken, setLoginToken] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [fetchedUserInfo, setFetchedUserInfo] = useState({});
+  const [fullName, setFullName] = useState("");
 
   const contextValue = {
     sidebar,
@@ -24,6 +25,8 @@ export default function RootLayout({ children }) {
     setLoggedIn,
     fetchedUserInfo,
     setFetchedUserInfo,
+    fullName,
+    setFullName,
   };
 
   return (
