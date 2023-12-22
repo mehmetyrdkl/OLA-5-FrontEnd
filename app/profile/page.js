@@ -45,7 +45,6 @@ export default function Page() {
           throw new Error("Network response was not ok.");
         } else {
           const responseData = await response.json();
-          // call another fetch request
           getBookings();
           value.setFullName(responseData.fullName);
           value.setLoggedIn(true);
@@ -68,7 +67,6 @@ export default function Page() {
 
       if (!response.ok) {
         if (response.status === 404) {
-          // console.error("no bookings");
         }
 
         throw new Error("Network response was not ok.");
@@ -80,8 +78,6 @@ export default function Page() {
       }
     } catch (error) {
       console.error(error.message);
-
-      // console.error("There was a problem with the fetch operation:", error);
     }
   }
 

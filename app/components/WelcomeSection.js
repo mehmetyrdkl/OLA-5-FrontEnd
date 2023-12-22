@@ -2,7 +2,6 @@ import React from "react";
 import "../styles/welcomeSection.scss";
 
 function WelcomeSection({ selectedHotel }) {
-  // const isHotelSelected = selectedHotel;
   if (selectedHotel.name) {
     return (
       <section className="welcome-section-wrapper">

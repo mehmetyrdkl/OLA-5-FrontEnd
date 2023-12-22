@@ -14,7 +14,6 @@ function FourthStepBooking({
 }) {
   const value = useMyContext();
   useEffect(() => {
-    // If fetchedUserInfo exists, update userInfo with its data
     if (value.fetchedUserInfo.fullName) {
       const updatedRooms = [...rooms];
       updatedRooms[0] = {
@@ -34,7 +33,6 @@ function FourthStepBooking({
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const numberRegex = /[0-9]{8}/;
 
-  // Add input values to rooms
   const handleInputChange = (event, roomId) => {
     const { name, value } = event.target;
 

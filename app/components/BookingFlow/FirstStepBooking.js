@@ -13,7 +13,6 @@ function FirstStepBooking({
   roomBookingStep,
 }) {
   function handleRoomSelection(room) {
-    // checking the amount of time you've gone through the booking flow (the other state)
     setBookingStep(bookingStep + 1);
     setSelectedRoom(room);
     setTotalPrice(room.price * numberOfDays);
@@ -67,7 +66,6 @@ function FirstStepBooking({
                   })}{" "}
                   kr.
                 </div>
-                {/* Add other room details you want to display */}
               </div>
               <div></div>
             </div>

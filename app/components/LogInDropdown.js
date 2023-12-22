@@ -43,7 +43,6 @@ function LogInDropdown() {
     }
   }, [value.sidebar]);
 
-  // handleClickOutside is recreated only when the 'value' changes.
   const handleClickOutside = useCallback(
     (e) => {
       if (
@@ -51,8 +50,7 @@ function LogInDropdown() {
         !dropdownRef.current.contains(e.target) &&
         listenersActive
       ) {
-        // Click occurred outside the parent div, close the dropdown
-        value.setSidebar(""); // Close the dropdown by setting the sidebar to an empty string
+        value.setSidebar("");
       }
     },
     [value, listenersActive]
@@ -108,17 +106,11 @@ function LogInDropdown() {
       localStorage.setItem("token", token);
       localStorage.setItem("user_id", userID);
 
-      // Handle the response data as needed
-      // console.log("Response data:", responseData);
-      // Display checkmark
       setLoginSuccess(true);
 
-      // hide dropdown-wrapper after 1.5s
       function closeLogin() {
         setErrorMessage("");
         value.setLoggedIn(true);
-        // set state to true to display menu
-        // value.setSidebar("");
       }
       setTimeout(closeLogin, 1500);
     } catch (error) {
@@ -151,7 +143,6 @@ function LogInDropdown() {
     typeof window !== "undefined" ? localStorage.getItem("token") : null;
   useEffect(() => {
     if (token) {
-      // console.log(token);
       checkLogin();
     }
     async function checkLogin() {
@@ -254,7 +245,6 @@ function LogInDropdown() {
             <div className="login-wrapper">
               <button
                 className="active"
-                // disabled={!allFieldsFilled}
                 onClick={() => handleLoginValidation()}
               >
                 Log in

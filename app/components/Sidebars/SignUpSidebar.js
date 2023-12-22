@@ -57,7 +57,6 @@ function SignUpSidebar() {
       (currentDate.getMonth() === birthDateObj.getMonth() &&
         currentDate.getDate() >= birthDateObj.getDate());
 
-    // If birthday hasn't occurred yet, decrement age
     if (!hasBirthdayOccurred) {
       age--;
     }
@@ -205,7 +204,6 @@ function SignUpSidebar() {
       localStorage.setItem("token", token);
       localStorage.setItem("user_id", userID);
 
-      // Handle the response data as needed
       console.log("Response data:", responseData);
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);

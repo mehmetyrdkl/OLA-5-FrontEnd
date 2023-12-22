@@ -59,7 +59,6 @@ function BookingSidebar({
         try {
           const token = localStorage.getItem("token");
           if (!token) {
-            // Handle the case when token is not available
             return;
           }
 
@@ -75,10 +74,7 @@ function BookingSidebar({
           );
 
           if (!response.ok) {
-            // Handle different types of errors (e.g., unauthorized access)
             if (response.status === 401) {
-              // Handle unauthorized access
-              // Maybe clear the token and redirect to login
               localStorage.removeItem("token");
             }
 
@@ -87,9 +83,6 @@ function BookingSidebar({
             const responseData = await response.json();
             value.setFetchedUserInfo(responseData);
           }
-
-          // Handle the response data as needed
-          // console.log("Response data:", responseData.fullName);
         } catch (error) {
           console.error("There was a problem with the fetch operation:", error);
         }
@@ -98,7 +91,7 @@ function BookingSidebar({
       prefill();
     } else {
     }
-  }, [value.sidebar]); // Add localStorage.getItem("token") to the dependency array
+  }, [value.sidebar]);
 
   const [roomPackage, setRoomPackage] = useState(1);
 
@@ -344,15 +337,6 @@ function BookingSidebar({
             setFourthStepContinueClicked={setFourthStepContinueClicked}
           />
         )}
-        {/* footer bar */}
-        {/* {bookingStep > 0 && (
-          <button onClick={() => setBookingStep(bookingStep - 1)}>
-            Previous
-          </button>
-        )}
-        {bookingStep < 4 && (
-          <button onClick={() => setBookingStep(bookingStep + 1)}>Next</button>
-        )} */}
       </div>
     </div>
   );
